@@ -172,6 +172,8 @@ td.cheap{color:var(--acc)}
   font-size:28px; color:var(--acc); letter-spacing:.06em; margin:16px 0 8px;
   font-variant-numeric:tabular-nums;
 }
+.near{color:var(--dim); font-size:11px; margin:-6px 0 10px}
+.near b{color:var(--fg); font-weight:400; font-variant-numeric:tabular-nums}
 #d-recal{display:block; margin:0 0 10px}
 .legs{display:flex; gap:14px; color:var(--dim); font-size:11px}
 .legs b{color:var(--fg); font-weight:400}

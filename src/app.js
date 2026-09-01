@@ -146,6 +146,13 @@ function paintDetail(){
   const p = presses(code);
 
   $("d-code").textContent = fmtCode(code);
+  /* The game samples the seed on the confirm press, not the second you aimed
+     at — a beat early or late lands on a different code entirely. Surfacing
+     the neighbours right next to the main one lets you recognise "that's
+     actually the early/late code" on sight, instead of only finding out via
+     a mismatched recalibration search. */
+  $("d-near").innerHTML = `if you're early <b>${fmtCode(vaultCode(seed - 1))}</b>`
+    + ` &middot; if you're late <b>${fmtCode(vaultCode(seed + 1))}</b>`;
   $("d-legs").innerHTML = p.legs.map(l =>
     `<span><b>${pad2(l.to)}</b> ${l.cost}${l.dir}</span>`).join("")
     + `<span class="spacer"></span><span><b>${p.total}</b> total</span>`;
