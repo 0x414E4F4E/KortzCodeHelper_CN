@@ -103,18 +103,27 @@ main{flex:1; display:flex; min-height:0}
    hits overflow:auto and just pushes the page (and this section) off-screen
    instead of scrolling internally. This is the fix for the "table doesn't
    show up on Chrome mobile" bug. */
-.list{position:relative; flex:1; min-width:0; min-height:0; display:flex; flex-direction:column; overflow:auto}
-/* Absolutely positioned inside the scroll container itself: it stays pinned
-   to that box's corner while the table scrolls underneath it, same trick as
-   any floating-action button over a scroll pane. */
+.list{flex:1; min-width:0; min-height:0; display:flex; flex-direction:column; overflow:auto}
+/* Fixed to the viewport, not absolute inside .list: a table as a flex/overflow
+   ancestor is exactly the combination that makes browsers size that box
+   unpredictably, which left an absolutely-positioned button anchored to
+   whatever height .list happened to compute instead of floating free. Fixed
+   sidesteps that entirely — nothing here uses transform/filter, so it stays
+   viewport-relative. */
 .totop{
-  position:absolute; right:16px; bottom:16px; z-index:1;
+  position:fixed; right:16px; bottom:16px; z-index:5;
   width:34px; height:34px; border-radius:50%; display:flex;
   align-items:center; justify-content:center; font-size:16px;
   background:var(--panel); border:1px solid var(--line); color:var(--acc);
   cursor:pointer; box-shadow:0 2px 8px #0008;
 }
 .totop:hover{border-color:var(--acc)}
+/* [hidden]'s specificity (0,2,0) beats the plain class rule above (0,1,0), so
+   this actually wins instead of the author display:flex silently overriding
+   the UA stylesheet's [hidden]{display:none} — which is why it was showing
+   up immediately at a fixed spot instead of only once scrolled. */
+.totop[hidden]{display:none}
+@media (min-width:821px){ .totop{right:360px} }   /* clear the detail panel */
 .detail{
   width:340px; flex:none; min-height:0; border-left:1px solid var(--line);
   padding:14px; overflow:auto;
