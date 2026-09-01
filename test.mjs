@@ -58,8 +58,10 @@ if (!existsSync(dist)){
   try{ new Script(js); }catch(e){ parsed = false; console.log("        " + e.message); }
   check("built js parses", parsed, true);
   /* One file: nothing is loaded from disk or a CDN. The page does reach out to
-     a time endpoint at runtime, which is a fetch, not a page dependency. */
-  check("no external page assets", /\ssrc="|\shref="(?!#)/.test(html), false);
+     a time endpoint at runtime, which is a fetch, not a page dependency. A plain
+     <a href> (the footer's link to the repo) is a click target, not a load, so
+     only <link href> (stylesheets) and any src= (script/img/iframe/...) count. */
+  check("no external page assets", /\ssrc="|<link[^>]*\shref="/.test(html), false);
   check("time endpoints intact",
         ["time.akamai.com", "cloudflare.com/cdn-cgi/trace", "timeapi.io"].filter(h => !html.includes(h)),
         []);

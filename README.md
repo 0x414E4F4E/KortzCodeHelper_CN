@@ -9,7 +9,7 @@ A single self-contained HTML page that predicts, for any second you have not pla
 Kortz Center heist will roll: the vault code, the laser variant, and the hacking-minigame boards.
 
 ```
-node build.mjs        -> dist/kortz.html   (minified, ~27 kB, open it from disk)
+node build.mjs        -> dist/kortz.html   (minified, ~28 kB, open it from disk)
 node build.mjs --raw  -> readable output, for debugging
 node test.mjs         -> pins the derivations to values observed in-game
 ```
