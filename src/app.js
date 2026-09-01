@@ -193,7 +193,7 @@ function paintNow(ms){
     nowSec = sec;
     const seed = sec + state.cal;
     $("now-code").textContent = fmtCode(vaultCode(seed));
-    $("now-laser").textContent = "lz " + laserVariant(seed);
+    $("now-laser").textContent = laserVariant(seed);
     $("now-seed").textContent = "seed " + seed;
   }
   $("now-fill").style.width = ((ms % 1000) / 1000 * 100) + "%";
@@ -343,6 +343,11 @@ $("rows").addEventListener("keydown", e => {
   const tr = e.target.closest("tr[data-w]");
   if (tr){ e.preventDefault(); select(Number(tr.dataset.w)); }
 });
+/* The sticky header hides that the table has scrolled at all — a shadow
+   under it when not at the top is the only cue, so add one. */
+$("list").addEventListener("scroll", () => {
+  $("list").classList.toggle("scrolled", $("list").scrollTop > 0);
+}, { passive: true });
 $("window").addEventListener("change", e => { state.window = Number(e.target.value); build(); render(); });
 $("sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
 $("maxpress").addEventListener("input", e => {
