@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+
+# ideal_boards.c build output (compiled locally, see README for the gcc line)
+ideal_boards_c
+ideal_boards_c.exe
+
+# .NET build output
+dotnet/IdealBoards/bin/
+dotnet/IdealBoards/obj/

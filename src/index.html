@@ -1,0 +1,168 @@
+<!doctype html>
+<!--
+  Kortz Code Helper — development source.
+
+  Open this file directly in a browser to work on it; the stylesheet and the two
+  scripts load from beside it. `node build.mjs` inlines all three into the single
+  file dist/kortz.html.
+
+  The build finds those three tags by their exact text, so keep them written
+  exactly as they appear below (one line each, double quotes, no extra
+  attributes).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kortz Code Helper</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<header class="bar">
+  <h1>KORTZ CODE HELPER</h1>
+  <div class="clock">
+    <span id="clock-utc">--:--:--</span><span class="frac" id="clock-frac">.00</span>
+    <span class="unit">UTC</span>
+    <span class="sync" id="sync">syncing…</span>
+  </div>
+</header>
+
+<!-- The live second: what would be recorded if you confirmed setup right now.
+     The fill bar is that second's own progress, so a glance shows the code is
+     not static — it turns over every tick. -->
+<div class="now" id="now-bar">
+  <span class="lbl">this second</span>
+  <span class="code" id="now-code">--&#8202;-&#8202;--&#8202;-&#8202;--</span>
+  <span class="dim" id="now-laser">lz -</span>
+  <span class="spacer"></span>
+  <span class="dim" id="now-seed">seed -</span>
+  <i class="fill" id="now-fill"></i>
+</div>
+
+<!-- Calibration state. Red until an offset is measured, because every code on
+     screen is wrong by the session lag until then. -->
+<div class="cal" id="cal-bar">
+  <span class="dot" id="cal-dot"></span>
+  <span id="cal-text">not calibrated</span>
+  <span class="spacer"></span>
+  <button class="btn" id="cal-open" type="button">Calibrate</button>
+  <button class="btn ghost" id="cal-clear" type="button" hidden>Clear</button>
+</div>
+
+<div class="cfg">
+  <label>Ahead
+    <select id="window">
+      <option value="300">5 min</option>
+      <option value="900" selected>15 min</option>
+      <option value="1800">30 min</option>
+    </select>
+  </label>
+  <label>Max presses
+    <input id="maxpress" type="number" min="3" max="150" step="1" value="35">
+  </label>
+  <label>Sort
+    <select id="sort">
+      <option value="time" selected>soonest</option>
+      <option value="press">cheapest</option>
+    </select>
+  </label>
+  <label class="grow">Seed
+    <input id="lookup" type="text" inputmode="numeric" placeholder="look up a seed">
+  </label>
+</div>
+
+<main>
+  <section class="list">
+    <table>
+      <thead>
+        <tr><th>in</th><th>utc</th><th>seed</th><th>code</th><th class="r">pr</th><th class="r">lz</th></tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="note" id="count-note"></p>
+  </section>
+
+  <aside class="detail" id="detail" hidden>
+    <div class="tminus" id="tminus"><span id="t-main">--:--</span><span class="cs" id="t-cs"></span></div>
+    <p class="note" id="t-sub"></p>
+
+    <div class="code" id="d-code">--&#8202;-&#8202;--&#8202;-&#8202;--</div>
+    <button class="btn ghost" id="d-recal" type="button">Recalibrate from this code</button>
+    <div class="legs" id="d-legs"></div>
+
+    <dl class="facts">
+      <dt>seed</dt><dd id="d-seed">-</dd>
+      <dt>act at</dt><dd id="d-utc">-</dd>
+      <dt>laser</dt><dd id="d-laser">-</dd>
+    </dl>
+
+    <h2>Hack boards</h2>
+    <div class="boards" id="d-boards"></div>
+  </aside>
+</main>
+
+<!-- Calibration. Step 1 arms a second; step 2 takes the code the game actually
+     produced and solves for the gap between the two. -->
+<dialog id="cal-dialog">
+  <form method="dialog"><button class="x" id="cal-close" aria-label="Close">&#215;</button></form>
+  <h2>Session calibration</h2>
+  <p class="note">The game's clock is anchored at sign-in and runs a fixed number of seconds
+     behind. Measure it once per launch, on a heist you then cancel.</p>
+
+  <ol class="steps">
+    <li id="step1">
+      <h3>Arm a second and trigger setup on it</h3>
+      <div id="arm-idle">
+        <label>Lead
+          <select id="cal-lead">
+            <option value="10">10 s</option>
+            <option value="20">20 s</option>
+            <option value="30" selected>30 s</option>
+            <option value="60">60 s</option>
+          </select>
+        </label>
+        <button class="btn" id="cal-arm" type="button">Start countdown</button>
+        <p class="note">Open the planning board and hold on the setup-cost confirm prompt. Confirm it
+           as the countdown hits START.</p>
+      </div>
+      <div id="arm-live" hidden>
+        <div class="tminus" id="arm-t"><span id="arm-main">--:--</span><span class="cs" id="arm-cs"></span></div>
+        <p class="note" id="arm-sub"></p>
+        <button class="btn ghost" id="cal-rearm" type="button">Reset</button>
+      </div>
+    </li>
+
+    <li id="step2">
+      <h3>Enter the code the game gave you</h3>
+      <div class="entry">
+        <input id="c1" type="text" inputmode="numeric" maxlength="2" placeholder="99">
+        <input id="c2" type="text" inputmode="numeric" maxlength="2" placeholder="99">
+        <input id="c3" type="text" inputmode="numeric" maxlength="2" placeholder="99">
+        <select id="cal-radius">
+          <option value="180">&#177;3 min</option>
+          <option value="600" selected>&#177;10 min</option>
+          <option value="1800">&#177;30 min</option>
+        </select>
+        <button class="btn" id="cal-find" type="button">Find offset</button>
+      </div>
+      <div class="result" id="cal-result"></div>
+    </li>
+
+    <li id="step3" class="alt">
+      <h3>Or enter a known offset directly</h3>
+      <div class="entry">
+        <input id="cal-manual" type="number" step="1" placeholder="e.g. -37">
+        <button class="btn" id="cal-manual-apply" type="button">Apply</button>
+      </div>
+      <p class="note">Skips steps 1–2 if you already measured this session's offset another way.
+         Positive if the game's seed runs ahead of this clock, negative if behind.</p>
+    </li>
+  </ol>
+</dialog>
+
+<script src="kortz.js"></script>
+<script src="clock.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
