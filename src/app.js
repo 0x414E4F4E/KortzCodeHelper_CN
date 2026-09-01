@@ -151,8 +151,8 @@ function paintDetail(){
      the neighbours right next to the main one lets you recognise "that's
      actually the early/late code" on sight, instead of only finding out via
      a mismatched recalibration search. */
-  $("d-near").innerHTML = `if you're early <b>${fmtCode(vaultCode(seed - 1))}</b>`
-    + ` &middot; if you're late <b>${fmtCode(vaultCode(seed + 1))}</b>`;
+  $("d-near").innerHTML = `<span>if you're early</span><b>${fmtCode(vaultCode(seed - 1))}</b>`
+    + `<span>if you're late</span><b>${fmtCode(vaultCode(seed + 1))}</b>`;
   $("d-legs").innerHTML = p.legs.map(l =>
     `<span><b>${pad2(l.to)}</b> ${l.cost}${l.dir}</span>`).join("")
     + `<span class="spacer"></span><span><b>${p.total}</b> total</span>`;
