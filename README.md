@@ -1,9 +1,12 @@
 # Kortz Code Helper
 
+A note from me, Lucas:
+
 This site is built by Claude Code, however the research that informed it was a team effort between
-me (Lucas7yoshi), Floorball, and Logan. I just suck ass at making web sites, so I just babysitted
-Claude on making this. I have opinions on vibecoding that you can read more about
-[here](https://git.l7y.media/slop/.profile).
+me (Lucas7yoshi), Floorball (initial research), and Logan (further investigation). I just suck ass at making web sites, so I just babysitted
+Claude on making this. I have opinions on vibecoding that you can read more about [here](https://git.l7y.media/slop/.profile). (TL;DR: Don't lose your smarts to it.)
+
+Now for the clauded explanation of our research:
 
 A single self-contained HTML page that predicts, for any second you have not played yet, what the
 Kortz Center heist will roll: the vault code, the laser variant, and the hacking-minigame boards.
