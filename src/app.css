@@ -94,6 +94,7 @@ input:hover,select:hover{border-color:#2c302c}
 main{flex:1; display:flex; min-height:0}
 .foot{padding:12px 14px; text-align:center}
 .foot a{color:var(--dim)}
+.foot .mark{cursor:help; border-bottom:1px dotted var(--dim)}
 .list{flex:1; min-width:0; display:flex; flex-direction:column; overflow:auto}
 .detail{
   width:340px; flex:none; border-left:1px solid var(--line);
