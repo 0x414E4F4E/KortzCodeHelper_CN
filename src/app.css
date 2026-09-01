@@ -213,6 +213,8 @@ dialog h2{margin-top:0}
 .steps li.done::before{content:"\2713"; color:var(--acc)}
 .steps li.alt::before{content:"or"}
 .steps label{font-size:11px; color:var(--dim); margin-right:10px}
+#nbr-hint{margin-bottom:8px}
+#nbr-hint b{color:var(--fg); font-weight:400}
 .entry{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
 .entry input{width:44px; text-align:center; font-size:16px}
 .result{margin-top:10px; font-size:11px; line-height:1.6; color:var(--dim)}

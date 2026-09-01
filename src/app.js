@@ -11,6 +11,11 @@
    acting on wall second w lands on seed w + cal.
    =========================================================================== */
 const STALE_MS = 2 * 3600 * 1000;   // an offset dies with the GTA process
+/* A delta this small from the *current* calibration reads as mistimed press
+   (early/late by a beat), not a genuinely changed offset — see the nudge in
+   findOffset(). Chasing every 1s jitter as if it were drift is what put users
+   in a too-early/too-late loop. */
+const TIMING_SLOP = 2;
 
 const state = {
   window: 900, max: 35, sort: "time",
@@ -264,7 +269,7 @@ function setCal(delta){
   store.set("cal-at", state.calAt);
   state.selected = null;
   nowSec = null;          // force the live strip to recompute under the new offset
-  paintCal(); build(); render();
+  paintCal(); paintNbr(); build(); render();
 }
 
 function clearCal(){
@@ -281,6 +286,21 @@ function paintArm(){
   $("arm-idle").hidden = state.armed !== null;
   $("arm-live").hidden = state.armed === null;
   $("step1").classList.toggle("done", state.armed !== null);
+  paintNbr();
+}
+
+/* Reference codes for the seconds either side of the armed one, under the
+   *current* offset — lets you eyeball, before even submitting, whether what
+   you got matches "on time" or one of its neighbours. Only meaningful once
+   there is an existing offset to reference; on a first-ever calibration
+   there's nothing to compare against, so it stays hidden. */
+function paintNbr(){
+  const el = $("nbr-hint");
+  if (state.armed === null || state.calAt === null){ el.hidden = true; return; }
+  el.hidden = false;
+  const codeAt = k => fmtCode(vaultCode(state.armed + k + state.cal));
+  el.innerHTML = `reference at your current offset — <b>1s early</b> ${codeAt(-1)}`
+    + ` &middot; <b>on time</b> ${codeAt(0)} &middot; <b>1s late</b> ${codeAt(1)}`;
 }
 
 const armT = { box: null, main: null, cs: null };
@@ -316,11 +336,32 @@ function findOffset(){
   if (!hits.length)
     return showResult(`No second within ±${Math.round(R / 60)} min produces <b>${fmtCode(obs)}</b>. `
       + "Widen the search, or check the numbers and their order.", "miss");
+
+  /* How close a candidate offset is to the one already in effect — small and
+     the likelier story is a mistimed press, not the offset actually moving. */
+  const timing = d => {
+    if (state.calAt === null || d === state.cal) return "";
+    const k = d - state.cal;
+    return Math.abs(k) <= TIMING_SLOP
+      ? ` — looks like ~${Math.abs(k)}s ${k > 0 ? "late" : "early"}, same offset` : "";
+  };
+
   if (hits.length > 1)
     return showResult(`${hits.length} seconds produce ${fmtCode(obs)}. Pick the one you believe:`
       + hits.slice(0, 8).map(d => `<button class="cand" type="button" data-d="${d}">${signed(d)}s `
-        + `→ seed ${state.armed + d} (${utcTime(state.armed + d)} UTC)</button>`).join(""), "hit");
-  commit(hits[0]);
+        + `→ seed ${state.armed + d} (${utcTime(state.armed + d)} UTC)${timing(d)}</button>`).join(""), "hit");
+
+  const d = hits[0];
+  if (state.calAt !== null && d !== state.cal && Math.abs(d - state.cal) <= TIMING_SLOP){
+    const k = d - state.cal;
+    return showResult(
+      `That matches pressing about <b>${Math.abs(k)}s ${k > 0 ? "late" : "early"}</b>, not a changed offset — `
+      + `your current calibration (<b>${signed(state.cal)}s</b>) is probably still fine.`
+      + `<button class="cand" type="button" data-keep="1">Keep it — I'll aim ${k > 0 ? "earlier" : "later"} next time</button>`
+      + `<button class="cand" type="button" data-d="${d}">Apply ${signed(d)}s anyway</button>`,
+      "hit");
+  }
+  commit(d);
 }
 
 function commit(d){
@@ -389,7 +430,9 @@ $("d-recal").addEventListener("click", () => {
 $("cal-find").addEventListener("click", findOffset);
 $("cal-result").addEventListener("click", e => {
   const b = e.target.closest("button.cand");
-  if (b) commit(Number(b.dataset.d));
+  if (!b) return;
+  if (b.dataset.keep) return showResult("Keeping the current offset — nothing changed.", "hit");
+  commit(Number(b.dataset.d));
 });
 ["c1","c2","c3"].forEach((id, i, all) => {
   const el = $(id);

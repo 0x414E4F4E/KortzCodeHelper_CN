@@ -9,7 +9,7 @@ A single self-contained HTML page that predicts, for any second you have not pla
 Kortz Center heist will roll: the vault code, the laser variant, and the hacking-minigame boards.
 
 ```
-node build.mjs        -> dist/kortz.html   (minified, ~28 kB, open it from disk)
+node build.mjs        -> dist/kortz.html   (minified, ~31 kB, open it from disk)
 node build.mjs --raw  -> readable output, for debugging
 node test.mjs         -> pins the derivations to values observed in-game
 ```
@@ -33,6 +33,17 @@ Recalibrating doesn't require the full arm-and-wait every time. If the offset ha
 turns amber) or you already have a code for a second you can pin down — one you just played, or one
 found via the seed lookup — open that second's detail panel and use **Recalibrate from this code**. It
 arms that exact second and drops straight into the code-entry step, skipping the countdown.
+
+Recalibrating from a code you just played has a failure mode of its own: the game samples the seed on
+the confirm press, not on the armed second, so if you're a beat early or late the code you get is for a
+*different* second than the one you aimed at. Naively solving for a new offset from that code chases
+timing noise — a 1s-late press looks identical to a 1s offset drift, so the next recalibration, aimed
+using the now-shifted (wrong) offset, is more likely to be mistimed the same way, and the offset walks
+back and forth. Two guards against that: step 2 shows a reference line with what the code would be at
+±1s under your *current* offset, so you can eyeball a mismatch before submitting; and if the offset that
+would result is within 2s of the current one, the page treats that as probably-mistimed-press rather
+than drift and asks whether to keep the current offset (aiming to press earlier/later next time) or
+apply the small change anyway, instead of silently overwriting it.
 
 ## Time sync
 
