@@ -103,7 +103,18 @@ main{flex:1; display:flex; min-height:0}
    hits overflow:auto and just pushes the page (and this section) off-screen
    instead of scrolling internally. This is the fix for the "table doesn't
    show up on Chrome mobile" bug. */
-.list{flex:1; min-width:0; min-height:0; display:flex; flex-direction:column; overflow:auto}
+.list{position:relative; flex:1; min-width:0; min-height:0; display:flex; flex-direction:column; overflow:auto}
+/* Absolutely positioned inside the scroll container itself: it stays pinned
+   to that box's corner while the table scrolls underneath it, same trick as
+   any floating-action button over a scroll pane. */
+.totop{
+  position:absolute; right:16px; bottom:16px; z-index:1;
+  width:34px; height:34px; border-radius:50%; display:flex;
+  align-items:center; justify-content:center; font-size:16px;
+  background:var(--panel); border:1px solid var(--line); color:var(--acc);
+  cursor:pointer; box-shadow:0 2px 8px #0008;
+}
+.totop:hover{border-color:var(--acc)}
 .detail{
   width:340px; flex:none; min-height:0; border-left:1px solid var(--line);
   padding:14px; overflow:auto;

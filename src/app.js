@@ -344,10 +344,14 @@ $("rows").addEventListener("keydown", e => {
   if (tr){ e.preventDefault(); select(Number(tr.dataset.w)); }
 });
 /* The sticky header hides that the table has scrolled at all — a shadow
-   under it when not at the top is the only cue, so add one. */
+   under it, plus a floating back-to-top button, are the only cues, so add
+   both. The shadow alone reads as too subtle against the dark theme. */
 $("list").addEventListener("scroll", () => {
-  $("list").classList.toggle("scrolled", $("list").scrollTop > 0);
+  const scrolled = $("list").scrollTop > 0;
+  $("list").classList.toggle("scrolled", scrolled);
+  $("to-top").hidden = !scrolled;
 }, { passive: true });
+$("to-top").addEventListener("click", () => $("list").scrollTo({ top: 0, behavior: "smooth" }));
 $("window").addEventListener("change", e => { state.window = Number(e.target.value); build(); render(); });
 $("sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
 $("maxpress").addEventListener("input", e => {
