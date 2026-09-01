@@ -104,16 +104,17 @@ main{flex:1; display:flex; min-height:0}
    instead of scrolling internally. This is the fix for the "table doesn't
    show up on Chrome mobile" bug. */
 .list{flex:1; min-width:0; min-height:0; display:flex; flex-direction:column; overflow:auto}
-/* Fixed to the viewport, not absolute inside .list: a table as a flex/overflow
-   ancestor is exactly the combination that makes browsers size that box
-   unpredictably, which left an absolutely-positioned button anchored to
-   whatever height .list happened to compute instead of floating free. Fixed
-   sidesteps that entirely — nothing here uses transform/filter, so it stays
-   viewport-relative. */
+/* Sticky within .list, not fixed to the viewport: the same trick the table
+   header already uses, so it's pinned near the top of the *table's* scrollport
+   — centered over the table, never over the always-visible header/controls
+   above .list, and never over .detail either since it's confined to .list's
+   own (narrower, on desktop) width. The negative bottom margin cancels the
+   flow height its own box would otherwise reserve, so unhiding it mid-scroll
+   doesn't shove the rows down by its height. */
 .totop{
-  position:fixed; right:16px; bottom:16px; z-index:5;
-  width:34px; height:34px; border-radius:50%; display:flex;
-  align-items:center; justify-content:center; font-size:16px;
+  position:sticky; top:10px; align-self:center; z-index:5;
+  width:44px; height:44px; margin-bottom:-44px; border-radius:50%; display:flex;
+  align-items:center; justify-content:center; font-size:20px;
   background:var(--panel); border:1px solid var(--line); color:var(--acc);
   cursor:pointer; box-shadow:0 2px 8px #0008;
 }
@@ -121,9 +122,8 @@ main{flex:1; display:flex; min-height:0}
 /* [hidden]'s specificity (0,2,0) beats the plain class rule above (0,1,0), so
    this actually wins instead of the author display:flex silently overriding
    the UA stylesheet's [hidden]{display:none} — which is why it was showing
-   up immediately at a fixed spot instead of only once scrolled. */
+   up immediately instead of only once scrolled. */
 .totop[hidden]{display:none}
-@media (min-width:821px){ .totop{right:360px} }   /* clear the detail panel */
 .detail{
   width:340px; flex:none; min-height:0; border-left:1px solid var(--line);
   padding:14px; overflow:auto;
