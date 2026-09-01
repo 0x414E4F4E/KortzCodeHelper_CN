@@ -130,7 +130,13 @@ main{flex:1; display:flex; min-height:0}
 }
 @media (max-width:820px){
   main{flex-direction:column}
-  .detail{width:auto; border-left:0; border-top:1px solid var(--line)}
+  /* .detail is flex:none above so it sits at its natural (fixed) width beside
+     .list on desktop — but that also disables shrinking, so stacked in a
+     column it refuses to shrink to fit and its content spills out past
+     main's box, overlapping whatever comes after it in the page (the
+     footer). Give it flex:1 here too, same as .list, so the two share the
+     column's height and each scrolls internally instead of overflowing. */
+  .detail{width:auto; border-left:0; border-top:1px solid var(--line); flex:1}
 }
 
 /* ---- table ------------------------------------------------------------- */
