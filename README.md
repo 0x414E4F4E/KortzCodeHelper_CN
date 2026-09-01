@@ -9,7 +9,7 @@ A single self-contained HTML page that predicts, for any second you have not pla
 Kortz Center heist will roll: the vault code, the laser variant, and the hacking-minigame boards.
 
 ```
-node build.mjs        -> dist/kortz.html   (minified, ~31 kB, open it from disk)
+node build.mjs        -> dist/kortz.html   (minified, ~33 kB, open it from disk)
 node build.mjs --raw  -> readable output, for debugging
 node test.mjs         -> pins the derivations to values observed in-game
 ```
@@ -122,7 +122,10 @@ thing that tells you whether you broke it.
 
 ```
 src/index.html   markup
-src/app.css      styles — every colour is a token at the top
+src/app.css      styles — every colour is a token at the top, dark and light palettes
+                 both live under :root; the toggle just flips the html element's
+                 data-theme attribute (☾/☀ button, top right — follows the OS
+                 preference until you click it, then remembers your choice)
 src/kortz.js     the RNG and the derivations. Pure, no DOM, tested directly.
 src/clock.js     time sync: the endpoint list and the interval narrowing.
 src/app.js       the UI. Assumes the other two are already loaded.

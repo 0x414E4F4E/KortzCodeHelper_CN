@@ -18,7 +18,7 @@ const STALE_MS = 2 * 3600 * 1000;   // an offset dies with the GTA process
 const TIMING_SLOP = 2;
 
 const state = {
-  window: 900, max: 35, sort: "time",
+  window: 900, max: 35, sort: "time", hl: 15,
   selected: null, rows: [],
   cal: 0, calAt: null,     // measured offset, and when
   armed: null,             // the wall second armed in calibration step 1
@@ -117,7 +117,7 @@ function render(){
       <td>${utcTime(r.w)}</td>
       <td class="dim">${r.seed}</td>
       <td class="code">${fmtCode(r.code)}</td>
-      <td class="r${r.press <= 15 ? " cheap" : ""}">${r.press}</td>
+      <td class="r${r.press <= state.hl ? " cheap" : ""}">${r.press}</td>
       <td class="r dim">${r.laser}</td>
     </tr>`).join("");
 
@@ -400,11 +400,30 @@ $("list").addEventListener("scroll", () => {
   $("to-top").hidden = !scrolled;
 }, { passive: true });
 $("to-top").addEventListener("click", () => $("list").scrollTo({ top: 0, behavior: "smooth" }));
+/* data-theme is already set (or not) by the inline script in index.html's
+   <head>, before first paint — this just makes the toggle button reflect it
+   and lets clicking it override whatever localStorage/prefers-color-scheme
+   picked. */
+function paintThemeToggle(){
+  const light = document.documentElement.getAttribute("data-theme") === "light";
+  $("theme-toggle").textContent = light ? "☀" : "☾";
+}
+$("theme-toggle").addEventListener("click", () => {
+  const light = document.documentElement.getAttribute("data-theme") === "light";
+  if (light) document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme", "light");
+  try{ localStorage.setItem("kortz-theme", light ? "dark" : "light"); }catch(_){}
+  paintThemeToggle();
+});
 $("window").addEventListener("change", e => { state.window = Number(e.target.value); build(); render(); });
 $("sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
 $("maxpress").addEventListener("input", e => {
   const v = Number(e.target.value);
   if (v >= 3 && v <= 150){ state.max = v; render(); }
+});
+$("hlmax").addEventListener("input", e => {
+  const v = Number(e.target.value);
+  if (v >= 1 && v <= 150){ state.hl = v; render(); }
 });
 /* The box takes a seed, so convert back to the second you would act on. */
 $("lookup").addEventListener("input", e => {
@@ -465,6 +484,7 @@ clock.onchange = paintSync;
 syncClock(8);
 setInterval(() => syncClock(2), 120000);
 
+paintThemeToggle();
 paintCal();
 paintArm();
 build();

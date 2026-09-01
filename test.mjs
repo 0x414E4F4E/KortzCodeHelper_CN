@@ -53,7 +53,10 @@ if (!existsSync(dist)){
   console.log("skip  dist/kortz.html not built — run `node build.mjs` first");
 } else {
   const html = readFileSync(dist, "utf8");
-  const js = html.slice(html.indexOf("<script>") + 8, html.lastIndexOf("</script>"));
+  /* Two script tags now: a small inline theme-init snippet in <head>, then the
+     kortz.js+clock.js+app.js bundle at the end — this checks the bundle, so
+     take the LAST <script>...</script> pair, not the first. */
+  const js = html.slice(html.lastIndexOf("<script>") + 8, html.lastIndexOf("</script>"));
   let parsed = true;
   try{ new Script(js); }catch(e){ parsed = false; console.log("        " + e.message); }
   check("built js parses", parsed, true);
