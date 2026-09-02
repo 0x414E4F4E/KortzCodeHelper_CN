@@ -106,9 +106,9 @@ const stripHtmlComments = src => src.replace(/<!--[\s\S]*?-->/g, "").trim();
    The build itself. Guarded so test.mjs can import the minifiers above without
    triggering a write.
 --------------------------------------------------------------------------- */
-/* Load order, and the order they are concatenated in. app.js calls into both of
-   the others at load, so it goes last. */
-const SCRIPTS = ["kortz.js", "clock.js", "app.js"];
+/* Load order, and the order they are concatenated in. Each file calls into
+   ones before it at load, so app.js — event wiring and boot — goes last. */
+const SCRIPTS = ["kortz.js", "clock.js", "state.js", "table.js", "ticker.js", "calibration.js", "app.js"];
 
 function main(){
 const read = f => readFileSync(join(here, "src", f), "utf8");

@@ -208,6 +208,7 @@ if (m < 60) return m + " min ago";
 return Math.floor(m / 60) + "h " + (m % 60) + "m ago";
 }
 const signed = n => (n > 0 ? "+" : "−") + Math.abs(n);
+"use strict";
 function makeRow(w){
 const seed = w + state.cal;
 const code = vaultCode(seed);
@@ -288,6 +289,7 @@ return `<div class="bgroup"><span class="lbl">${name} · ${h.cols}×${h.rows}</s
 + `<div class="boards">${boards}</div></div>`;
 }).join("");
 }
+"use strict";
 function countdown(target, ms, els){
 const left = target - ms / 1000;
 if (left < -1){ els.box.className = "tminus gone"; els.main.textContent = "elapsed"; els.cs.textContent = ""; return -1; }
@@ -340,6 +342,7 @@ el.className = "sync";
 el.textContent = (a <= 250 ? "synced" : "narrowing") + " ±" + a + " ms · " + clock.source;
 el.title = "This PC's clock reads " + signed(Math.round(clock.offset)) + " ms against " + clock.source + ".";
 }
+"use strict";
 const calDlg = $("cal-dialog");
 const calStale = () => Boolean(state.cal) && Boolean(state.calAt) && Date.now() - state.calAt > STALE_MS;
 function paintCal(){
@@ -445,6 +448,7 @@ $("step2").classList.add("done");
 showResult(`Offset <b>${signed(d)}s</b> — the game recorded seed ${seed}. Applied to every prediction.`
 + (recalShortcut ? "" : " Now cancel this heist and start the real one."), "hit");
 }
+"use strict";
 $("rows").addEventListener("click", e => {
 const tr = e.target.closest("tr[data-w]");
 if (tr) select(Number(tr.dataset.w));

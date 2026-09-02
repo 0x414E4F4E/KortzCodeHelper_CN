@@ -2,13 +2,14 @@
 <!--
   Kortz Code Helper — development source.
 
-  Open this file directly in a browser to work on it; the stylesheet and the two
-  scripts load from beside it. `node build.mjs` inlines all three into the single
-  file dist/kortz.html.
+  Open this file directly in a browser to work on it; the stylesheet and the
+  scripts load from beside it. `node build.mjs` inlines all of them into the
+  single file dist/kortz.html.
 
-  The build finds those three tags by their exact text, so keep them written
-  exactly as they appear below (one line each, double quotes, no extra
-  attributes).
+  The build finds the stylesheet link and script tags by their exact text, so
+  keep them written exactly as they appear below (one line each, double
+  quotes, no extra attributes). Script order matters — see the SCRIPTS array
+  at the top of build.mjs.
 -->
 <html lang="en">
 <head>
@@ -174,6 +175,10 @@
 
 <script src="kortz.js"></script>
 <script src="clock.js"></script>
+<script src="state.js"></script>
+<script src="table.js"></script>
+<script src="ticker.js"></script>
+<script src="calibration.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

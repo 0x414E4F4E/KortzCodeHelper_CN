@@ -39,17 +39,22 @@ dotnet bin/Release/net10.0/IdealBoards.dll --start <unix> --duration <secs> --to
 
 ## Architecture
 
-### src/ — the page, four scripts loaded in a fixed order
+### src/ — the page, seven scripts loaded in a fixed order
 ```
-src/index.html   markup
-src/app.css      styles — every colour is a token at the top
-src/kortz.js     the RNG and derivations. Pure, no DOM — this is what test.mjs exercises directly.
-src/clock.js     time sync: endpoint list + interval-narrowing sync algorithm
-src/app.js       UI glue. Assumes kortz.js and clock.js are already loaded; owns all DOM/localStorage access.
+src/index.html      markup
+src/app.css         styles — every colour is a token at the top
+src/kortz.js        the RNG and derivations. Pure, no DOM — this is what test.mjs exercises directly.
+src/clock.js        time sync: endpoint list + interval-narrowing sync algorithm
+src/state.js        shared state, localStorage persistence, formatting helpers ($, fmtCode, ...)
+src/table.js        the upcoming-seconds table and the detail panel for the selected row
+src/ticker.js       the rAF display loop: header clock, live-second strip, countdowns, sync readout
+src/calibration.js  the two-step calibration dialog (arm a second, solve for the offset)
+src/app.js          event wiring and boot. Loaded last; assumes every file above is already loaded.
 ```
-`app.js` calls into both of the others at load time, so load order matters: `kortz.js`, `clock.js`,
-`app.js` last. That order is the `SCRIPTS` array at the top of `build.mjs` — add new script files
-there, not just in `index.html`.
+Everything from `state.js` on is UI glue with no test coverage of its own — `kortz.js` stays pure and
+testable (test.mjs runs it with no DOM), `clock.js` is driven entirely through fakeable browser APIs
+(see below). Later files call into earlier ones at load time, so load order matters; that order is the
+`SCRIPTS` array at the top of `build.mjs` — add new script files there, not just in `index.html`.
 
 **build.mjs** concatenates and inlines all four files into `dist/kortz.html`. It finds the stylesheet
 `<link>` and the three `<script src=...>` tags **by exact text match** and swaps them for inline
