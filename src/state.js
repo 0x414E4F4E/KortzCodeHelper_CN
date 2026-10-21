@@ -51,7 +51,7 @@ const pad2 = n => String(n).padStart(2, "0");
 const fmtCode = c => c.map(pad2).join("-");
 
 function utcTime(sec){
-  const d = new Date(sec * 1000);
+  const d = new Date(sec * 1000 + 8 * 3600e3);
   return pad2(d.getUTCHours()) + ":" + pad2(d.getUTCMinutes()) + ":" + pad2(d.getUTCSeconds());
 }
 function rel(sec){

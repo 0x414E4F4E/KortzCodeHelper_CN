@@ -19,13 +19,13 @@ function paintCal(){
   $("cal-clear").hidden = !state.cal;
   if (!state.cal){
     bar.className = "cal";
-    $("cal-text").textContent = "not calibrated — codes below are off by the session lag";
+    $("cal-text").textContent = "未校准时间，通行密码可能因游戏会话计时延迟而错误";
     return;
   }
   const stale = calStale();
   bar.className = "cal " + (stale ? "stale" : "on");
-  $("cal-text").textContent = signed(state.cal) + "s applied · measured " + ago(Date.now() - state.calAt)
-    + (stale ? " — only valid if GTA has not restarted since" : "");
+  $("cal-text").textContent = signed(state.cal) + " 秒延迟已应用 · 于 " + ago(Date.now() - state.calAt) + " 已校准"
+    + (stale ? " — 只有在 GTA V 游戏未重启时才能保持有效" : "");
 }
 
 function setCal(delta){
@@ -65,16 +65,16 @@ function paintNbr(){
   if (state.armed === null || state.calAt === null){ el.hidden = true; return; }
   el.hidden = false;
   const codeAt = k => fmtCode(vaultCode(state.armed + k + state.cal));
-  el.innerHTML = `reference at your current offset — <b>1s early</b> ${codeAt(-1)}`
-    + ` &middot; <b>on time</b> ${codeAt(0)} &middot; <b>1s late</b> ${codeAt(1)}`;
+  el.innerHTML = `由你目前设置的延迟为准：<b>早按了 1 秒时</b> ${codeAt(-1)}`
+    + ` &middot; <b>准确时</b> ${codeAt(0)} &middot; <b>晚按了 1 秒时</b> ${codeAt(1)}`;
 }
 
 const armT = { box: null, main: null, cs: null };
 function paintArmClock(ms){
   const phase = countdown(state.armed, ms, armT);
-  $("arm-sub").textContent = phase > 0 ? "confirm the setup prompt as this hits START"
-                           : phase === 0 ? "confirm now"
-                           : "logged — now enter the code the game gave you";
+  $("arm-sub").textContent = phase > 0 ? "当此处显示“请立即开始抢劫”时，立刻支付抢劫准备费用"
+                           : phase === 0 ? "立刻支付抢劫准备费用"
+                           : "已结束，现在请你输入当前游戏提供给你的通行密码";
   if (phase < 0 && !paintArmClock.jumped){ paintArmClock.jumped = true; try{ $("c1").focus(); }catch(_){} }
 }
 
@@ -85,10 +85,10 @@ function showResult(html, kind){
 }
 
 function findOffset(){
-  if (state.armed === null) return showResult("Arm a second in step 1 first — the offset is measured against it.", "miss");
+  if (state.armed === null) return showResult("先在步骤 1 中准备在某一秒支付抢劫准备费用，稍后偏移将会由其进行测量", "miss");
   const vals = ["c1","c2","c3"].map(id => $(id).value.trim());
   if (!vals.every(v => /^\d{1,2}$/.test(v) && Number(v) >= 1 && Number(v) <= 99))
-    return showResult("Enter all three numbers. Each is between 1 and 99.", "miss");
+    return showResult("请输入通行密码的三个数字，每个数字需在 1 - 99 之间", "miss");
   const obs = vals.map(Number);
 
   const R = Number($("cal-radius").value);
@@ -100,8 +100,8 @@ function findOffset(){
   hits.sort((a, b) => Math.abs(a) - Math.abs(b));
 
   if (!hits.length)
-    return showResult(`No second within ±${Math.round(R / 60)} min produces <b>${fmtCode(obs)}</b>. `
-      + "Widen the search, or check the numbers and their order.", "miss");
+    return showResult(`在 ±${Math.round(R / 60)} 分钟内没有可生成 <b>${fmtCode(obs)}</b> 的秒`
+      + "需要提高搜索范围，或者检查数字及其顺序是否正确", "miss");
 
   /* How close a candidate offset is to the one already in effect — small and
      the likelier story is a mistimed press, not the offset actually moving. */
@@ -109,22 +109,22 @@ function findOffset(){
     if (state.calAt === null || d === state.cal) return "";
     const k = d - state.cal;
     return Math.abs(k) <= TIMING_SLOP
-      ? ` — looks like ~${Math.abs(k)}s ${k > 0 ? "late" : "early"}, same offset` : "";
+      ? ` — 看起来你 ~${Math.abs(k)}s ${k > 0 ? "慢了" : "快了"}, same offset` : "";
   };
 
   if (hits.length > 1)
-    return showResult(`${hits.length} seconds produce ${fmtCode(obs)}. Pick the one you believe:`
-      + hits.slice(0, 8).map(d => `<button class="cand" type="button" data-d="${d}">${signed(d)}s `
-        + `→ seed ${state.armed + d} (${utcTime(state.armed + d)} UTC)${timing(d)}</button>`).join(""), "hit");
+    return showResult(`有 ${hits.length} 秒会生成 ${fmtCode(obs)} 的通行密码。请选择你想要的一秒：`
+      + hits.slice(0, 8).map(d => `<button class="cand" type="button" data-d="${d}">${signed(d)}秒 `
+        + `→ 种子 ${state.armed + d} (${utcTime(state.armed + d)} UTC +8)${timing(d)}</button>`).join(""), "hit");
 
   const d = hits[0];
   if (state.calAt !== null && d !== state.cal && Math.abs(d - state.cal) <= TIMING_SLOP){
     const k = d - state.cal;
     return showResult(
       `That matches pressing about <b>${Math.abs(k)}s ${k > 0 ? "late" : "early"}</b>, not a changed offset — `
-      + `your current calibration (<b>${signed(state.cal)}s</b>) is probably still fine.`
-      + `<button class="cand" type="button" data-keep="1">Keep it — I'll aim ${k > 0 ? "earlier" : "later"} next time</button>`
-      + `<button class="cand" type="button" data-d="${d}">Apply ${signed(d)}s anyway</button>`,
+      + `你目前的校准 (<b>${signed(state.cal)}s</b>) 应该是对的。`
+      + `<button class="cand" type="button" data-keep="1">保留 - 我将在 ${k > 0 ? "提前" : "延后"} 进行校准</button>`
+      + `<button class="cand" type="button" data-d="${d}">坚持应用 ${signed(d)} 秒偏移</button>`,
       "hit");
   }
   commit(d);

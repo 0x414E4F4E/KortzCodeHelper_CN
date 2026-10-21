@@ -267,22 +267,22 @@ const seed = w + state.cal;
 const code = vaultCode(seed);
 const p = presses(code);
 $("d-code").textContent = fmtCode(code);
-$("d-near").innerHTML = `<span>if you're early</span><b>${fmtCode(vaultCode(seed - 1))}</b>`
-+ `<span>if you're late</span><b>${fmtCode(vaultCode(seed + 1))}</b>`;
+$("d-near").innerHTML = `<span>如果你按的偏早了</span><b>${fmtCode(vaultCode(seed - 1))}</b>`
++ `<span>如果你按的偏慢了</span><b>${fmtCode(vaultCode(seed + 1))}</b>`;
 $("d-legs").innerHTML = p.legs.map(l =>
 `<span><b>${pad2(l.to)}</b> ${l.cost}${l.dir}</span>`).join("")
-+ `<span class="spacer"></span><span><b>${p.total}</b> total</span>`;
++ `<span class="spacer"></span><span><b>${p.total}</b> 总计</span>`;
 $("d-seed").textContent = seed;
 $("d-utc").textContent = utcTime(w) + " UTC";
 $("d-laser").textContent = "variant " + laserVariant(seed);
-$("d-boards").innerHTML = [["normal", false], ["hard", true]].map(([name, hard]) => {
+$("d-boards").innerHTML = [["普通", false], ["困难", true]].map(([name, hard]) => {
 const h = hackBoards(seed, hard);
 const boards = h.boards.map((pick, i) => {
 let cells = "";
 for (let c = 0; c < h.cols; c++)
 for (let r = 0; r < h.rows; r++)
 cells += `<span class="cell${pick[c] === r ? " on" : ""}"></span>`;
-return `<div class="board"><span class="lbl">P${i + 1}</span>`
+return `<div class="board"><span class="lbl">点阵 ${i + 1}</span>`
 + `<div class="cells" style="grid-template-rows:repeat(${h.rows},auto)">${cells}</div></div>`;
 }).join("");
 return `<div class="bgroup"><span class="lbl">${name} · ${h.cols}×${h.rows}</span>`

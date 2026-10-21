@@ -46,7 +46,7 @@ function render(){
   const shown = list.slice(0, cap);
 
   $("count-note").textContent = list.length
-    ? `${list.length} of ${state.rows.length} seconds at ${state.max} presses or fewer`
+    ? `在 ${state.rows.length} 秒中，有 ${list.length} 秒需要 ${state.max} 次或更少按键`
       + (list.length > cap ? ` · showing ${cap}` : "")
     : `No second under ${state.max} presses in this window — raise the limit or search further ahead.`;
 
@@ -90,25 +90,25 @@ function paintDetail(){
      the neighbours right next to the main one lets you recognise "that's
      actually the early/late code" on sight, instead of only finding out via
      a mismatched recalibration search. */
-  $("d-near").innerHTML = `<span>if you're early</span><b>${fmtCode(vaultCode(seed - 1))}</b>`
-    + `<span>if you're late</span><b>${fmtCode(vaultCode(seed + 1))}</b>`;
+  $("d-near").innerHTML = `<span>如果你按的偏早了</span><b>${fmtCode(vaultCode(seed - 1))}</b>`
+    + `<span>如果你按的偏慢了</span><b>${fmtCode(vaultCode(seed + 1))}</b>`;
   $("d-legs").innerHTML = p.legs.map(l =>
     `<span><b>${pad2(l.to)}</b> ${l.cost}${l.dir}</span>`).join("")
-    + `<span class="spacer"></span><span><b>${p.total}</b> total</span>`;
+    + `<span class="spacer"></span><span><b>${p.total}</b> 总计</span>`;
   $("d-seed").textContent = seed;
-  $("d-utc").textContent = utcTime(w) + " UTC";
-  $("d-laser").textContent = "variant " + laserVariant(seed);
+  $("d-utc").textContent = utcTime(w) + " UTC+8";
+  $("d-laser").textContent = "类型 " + laserVariant(seed);
 
   /* Both difficulties, because which one you are on is a lobby setting rather
      than anything the seed knows. The boards differ in size, not just content. */
-  $("d-boards").innerHTML = [["normal", false], ["hard", true]].map(([name, hard]) => {
+  $("d-boards").innerHTML = [["普通", false], ["困难", true]].map(([name, hard]) => {
     const h = hackBoards(seed, hard);
     const boards = h.boards.map((pick, i) => {
       let cells = "";
       for (let c = 0; c < h.cols; c++)
         for (let r = 0; r < h.rows; r++)
           cells += `<span class="cell${pick[c] === r ? " on" : ""}"></span>`;
-      return `<div class="board"><span class="lbl">P${i + 1}</span>`
+      return `<div class="board"><span class="lbl">点阵 ${i + 1}</span>`
         + `<div class="cells" style="grid-template-rows:repeat(${h.rows},auto)">${cells}</div></div>`;
     }).join("");
     return `<div class="bgroup"><span class="lbl">${name} · ${h.cols}×${h.rows}</span>`

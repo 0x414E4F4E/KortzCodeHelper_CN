@@ -13,8 +13,8 @@
    =========================================================================== */
 function countdown(target, ms, els){
   const left = target - ms / 1000;
-  if (left < -1){ els.box.className = "tminus gone"; els.main.textContent = "elapsed"; els.cs.textContent = ""; return -1; }
-  if (left <= 0){ els.box.className = "tminus live"; els.main.textContent = "START";  els.cs.textContent = ""; return 0; }
+  if (left < -1){ els.box.className = "tminus gone"; els.main.textContent = "已超时"; els.cs.textContent = ""; return -1; }
+  if (left <= 0){ els.box.className = "tminus live"; els.main.textContent = "请立即开始抢劫";  els.cs.textContent = ""; return 0; }
   els.box.className = "tminus";
   const s = Math.floor(left), m = Math.floor(s / 60);
   els.main.textContent = m >= 60
@@ -37,22 +37,22 @@ function paintNow(ms){
     const seed = sec + state.cal;
     $("now-code").textContent = fmtCode(vaultCode(seed));
     $("now-laser").textContent = laserVariant(seed);
-    $("now-seed").textContent = "seed " + seed;
+    $("now-seed").textContent = "种子 " + seed;
   }
   $("now-fill").style.width = ((ms % 1000) / 1000 * 100) + "%";
 }
 
 function frame(){
-  const ms = nowMs(), d = new Date(ms);
+  const ms = nowMs(), d = new Date(ms + 8 * 3600e3);
   $("clock-utc").textContent = pad2(d.getUTCHours()) + ":" + pad2(d.getUTCMinutes()) + ":" + pad2(d.getUTCSeconds());
   $("clock-frac").textContent = "." + pad2(Math.floor((ms % 1000) / 10));
   paintNow(ms);
 
   if (state.selected !== null){
     const phase = countdown(state.selected, ms, mainT);
-    $("t-sub").textContent = phase > 0 ? "confirm the setup prompt as this hits START"
-                           : phase === 0 ? "confirm now"
-                           : "that second has passed";
+    $("t-sub").textContent = phase > 0 ? "当倒计时出现“请立即开始抢劫”，立即确认支付。"
+                           : phase === 0 ? "请立即开始抢劫"
+                           : "选择的那一秒已超时";
   }
   if (calDlg.open && state.armed !== null) paintArmClock(ms);
   requestAnimationFrame(frame);
@@ -63,12 +63,12 @@ function paintSync(){
   const el = $("sync");
   if (clock.source === null){
     el.className = "sync bad";
-    el.textContent = "device clock — unverified";
-    el.title = "No time endpoint answered. Predictions are only as good as this PC's clock.";
+    el.textContent = "正在使用设备时间 - 无法确认时间";
+    el.title = "未收到同步的时间，本次预测仅在本计算机时间完全精确的情况下才准确";
     return;
   }
   const a = Math.round(clock.acc);
   el.className = "sync";
-  el.textContent = (a <= 250 ? "synced" : "narrowing") + " ±" + a + " ms · " + clock.source;
-  el.title = "This PC's clock reads " + signed(Math.round(clock.offset)) + " ms against " + clock.source + ".";
+  el.textContent = (a <= 250 ? "已同步" : "校准时间中") + " ±" + a + " ms · " + clock.source;
+  el.title = "本计算机的时间与 "+ clock.source +" 服务器约有 " + signed(Math.round(clock.offset)) + " ms 的偏差";
 }

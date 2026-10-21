@@ -11,35 +11,34 @@
   quotes, no extra attributes). Script order matters — see the SCRIPTS array
   at the top of build.mjs.
 -->
-<html lang="en">
+<html lang="zh">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kortz Code Helper</title>
+<title>科兹中心豪劫 速通密码预测工具</title>
 <script>try{var t=localStorage.getItem("kortz-theme");if(t!=="light"&&t!=="dark"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark"}if(t==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
 
 <header class="bar">
-  <h1>KORTZ CODE HELPER</h1>
+  <h1>GTA 在线模式：科兹中心豪劫 速通密码预测工具</h1>
   <div class="clock">
     <span id="clock-utc">--:--:--</span><span class="frac" id="clock-frac">.00</span>
-    <span class="unit">UTC</span>
-    <span class="sync" id="sync">syncing…</span>
+    <span class="unit">时区 UTC +8</span>
+    <span class="sync" id="sync">同步时间中......</span>
   </div>
-  <button class="btn ghost theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark theme"></button>
+  <button class="btn ghost theme-toggle" id="theme-toggle" type="button" aria-label="切换深色/浅色主题"></button>
 </header>
 
 <!-- The live second: what would be recorded if you confirmed setup right now.
      The fill bar is that second's own progress, so a glance shows the code is
      not static — it turns over every tick. -->
 <div class="now" id="now-bar">
-  <span class="sentence">If you started <b class="lbl">THIS SECOND</b>, the code would be
-    <span class="code" id="now-code">--&#8202;-&#8202;--&#8202;-&#8202;--</span>, and you'd have
-    Laser variant <b id="now-laser">-</b></span>
+  <span class="sentence">如果你在 <b class="lbl">本秒内</b> 支付抢劫准备费用，通行密码应该为
+    <span class="code" id="now-code">--&#8202;-&#8202;--&#8202;-&#8202;--</span>，且激光类型应该为 <b id="now-laser">-</b></span>
   <span class="spacer"></span>
-  <span class="dim" id="now-seed">seed -</span>
+  <span class="dim" id="now-seed">种子 -</span>
   <i class="fill" id="now-fill"></i>
 </div>
 
@@ -47,43 +46,43 @@
      screen is wrong by the session lag until then. -->
 <div class="cal" id="cal-bar">
   <span class="dot" id="cal-dot"></span>
-  <span id="cal-text">not calibrated</span>
+  <span id="cal-text">暂未校准</span>
   <span class="spacer"></span>
-  <button class="btn" id="cal-open" type="button">Calibrate</button>
-  <button class="btn ghost" id="cal-clear" type="button" hidden>Clear</button>
+  <button class="btn" id="cal-open" type="button">校准时间</button>
+  <button class="btn ghost" id="cal-clear" type="button" hidden>清除</button>
 </div>
 
 <div class="cfg">
-  <label>Ahead
+  <label>预计时间
     <select id="window">
-      <option value="300">5 min</option>
-      <option value="900" selected>15 min</option>
-      <option value="1800">30 min</option>
+      <option value="300">未来 5 分钟</option>
+      <option value="900" selected>未来 15 分钟</option>
+      <option value="1800">未来 30 分钟</option>
     </select>
   </label>
-  <label>Max presses
+  <label>最大操作次数
     <input id="maxpress" type="number" min="3" max="150" step="1" value="35">
   </label>
-  <label>Highlight under
+  <label>突出显示的最小操作次数
     <input id="hlmax" type="number" min="1" max="150" step="1" value="15">
   </label>
-  <label>Sort
+  <label>分类
     <select id="sort">
-      <option value="time" selected>soonest</option>
-      <option value="press">cheapest</option>
+      <option value="time" selected>距离现在最近</option>
+      <option value="press">操作尽量最少</option>
     </select>
   </label>
-  <label class="grow">Seed
-    <input id="lookup" type="text" inputmode="numeric" placeholder="look up a seed">
+  <label class="grow">种子
+    <input id="lookup" type="text" inputmode="numeric" placeholder="手动查找种子值">
   </label>
 </div>
 
 <main>
   <section class="list" id="list">
-    <button class="totop" id="to-top" type="button" aria-label="Back to top" hidden>&#8593;</button>
+    <button class="totop" id="to-top" type="button" aria-label="回到顶部" hidden>&#8593;</button>
     <table>
       <thead>
-        <tr><th>in</th><th>utc</th><th>seed</th><th>code</th><th class="r">pr</th><th class="r">lz</th></tr>
+        <tr><th>预计时间</th><th>UTC +8 时间</th><th>种子</th><th>通行密码</th><th class="r">操作次数</th><th class="r">激光种类</th></tr>
       </thead>
       <tbody id="rows"></tbody>
     </table>
@@ -96,79 +95,77 @@
 
     <div class="code" id="d-code">--&#8202;-&#8202;--&#8202;-&#8202;--</div>
     <p class="near" id="d-near"></p>
-    <button class="btn ghost" id="d-recal" type="button">Recalibrate from this code</button>
+    <button class="btn ghost" id="d-recal" type="button">从本通行密码重新进行校准</button>
     <div class="legs" id="d-legs"></div>
 
     <dl class="facts">
-      <dt>seed</dt><dd id="d-seed">-</dd>
-      <dt>act at</dt><dd id="d-utc">-</dd>
-      <dt>laser</dt><dd id="d-laser">-</dd>
+      <dt>种子</dt><dd id="d-seed">-</dd>
+      <dt>准备时间</dt><dd id="d-utc">-</dd>
+      <dt>激光类型</dt><dd id="d-laser">-</dd>
     </dl>
 
-    <h2>Hack boards</h2>
+    <h2>点阵预测图</h2>
     <div class="boards" id="d-boards"></div>
   </aside>
 </main>
 
-<footer class="note foot">Site created by Lucas7yoshi<span class="mark" title="using claude code, i am not very good at web design, and i figured people wouldnt want to download an exe desktop app, which is something i am actually comfortable at making">*</span>, research done by humans (Lucas7yoshi, Floorball, Logan) -
-  <a href="https://git.l7y.media/slop/KortzCodeHelper" target="_blank" rel="noopener">Source</a></footer>
+<footer class="note foot">原网页由 Lucas7yoshi 制作<span class="mark" title="本网站使用 Claude 制作，因为我发现总有人不喜欢下桌面 APP 使用，而这才是我真正擅长做的事情">*</span>，本项目由 Lucas7yoshi，Floorball 和 Logan 研究游戏机制 -
+  <a href="https://git.l7y.media/slop/KortzCodeHelper" target="_blank" rel="noopener">源代码</a><br>
+  汉化者：<a href="https://space.bilibili.com/275185681" target="_blank" rel="noopener">白发飘飘火柴人</a> 汉化项目：<a href="https://github.com/FlowingWhiteHairMatchstickMan/KortzCodeHelper_CN" target="_blank" rel="noopener">源代码</a></footer>
 
 <!-- Calibration. Step 1 arms a second; step 2 takes the code the game actually
      produced and solves for the gap between the two. -->
 <dialog id="cal-dialog">
-  <form method="dialog"><button class="x" id="cal-close" aria-label="Close">&#215;</button></form>
-  <h2>Session calibration</h2>
-  <p class="note">The game's clock is anchored at sign-in and runs a fixed number of seconds
-     behind. Measure it once per launch, on a heist you then cancel.</p>
+  <form method="dialog"><button class="x" id="cal-close" aria-label="关闭">&#215;</button></form>
+  <h2>游戏会话校准</h2>
+  <p class="note">游戏的时钟从登录游戏时开始计时，且始终比现实时间慢固定的秒数。每次启动游戏后都需要重新校准时间。每次校准完成后，请取消当前的科兹中心豪劫。</p>
 
   <ol class="steps">
     <li id="step1">
-      <h3>Arm a second and trigger setup on it</h3>
+      <h3>选择特定的秒数，并在该秒支付抢劫准备费用</h3>
       <div id="arm-idle">
-        <label>Lead
+        <label>提前
           <select id="cal-lead">
-            <option value="10">10 s</option>
-            <option value="20">20 s</option>
-            <option value="30" selected>30 s</option>
-            <option value="60">60 s</option>
+            <option value="10">10 秒</option>
+            <option value="20">20 秒</option>
+            <option value="30" selected>30 秒</option>
+            <option value="60">60 秒</option>
           </select>
         </label>
-        <button class="btn" id="cal-arm" type="button">Start countdown</button>
-        <p class="note">Open the planning board and hold on the setup-cost confirm prompt. Confirm it
-           as the countdown hits START.</p>
+        <button class="btn" id="cal-arm" type="button">开始倒计时</button>
+        <p class="note">打开科兹中心豪劫抢劫面板，在准备抢劫任务支付费用确认提示处等待倒计时，当倒计时出现“请立即开始抢劫”，立即确认支付。</p>
       </div>
       <div id="arm-live" hidden>
         <div class="tminus" id="arm-t"><span id="arm-main">--:--</span><span class="cs" id="arm-cs"></span></div>
         <p class="note" id="arm-sub"></p>
-        <button class="btn ghost" id="cal-rearm" type="button">Reset</button>
+        <button class="btn ghost" id="cal-rearm" type="button">重置倒计时</button>
       </div>
     </li>
 
     <li id="step2">
-      <h3>Enter the code the game gave you</h3>
+      <h3>输入游戏提供给你的通行密码</h3>
       <p class="note" id="nbr-hint" hidden></p>
       <div class="entry">
         <input id="c1" type="text" inputmode="numeric" maxlength="2" placeholder="99">
         <input id="c2" type="text" inputmode="numeric" maxlength="2" placeholder="99">
         <input id="c3" type="text" inputmode="numeric" maxlength="2" placeholder="99">
         <select id="cal-radius">
-          <option value="180">&#177;3 min</option>
-          <option value="600" selected>&#177;10 min</option>
-          <option value="1800">&#177;30 min</option>
+          <option value="180">&#177;3 分钟</option>
+          <option value="600" selected>&#177;10 分钟</option>
+          <option value="1800">&#177;30 分钟</option>
         </select>
-        <button class="btn" id="cal-find" type="button">Find offset</button>
+        <button class="btn" id="cal-find" type="button">查找偏移值</button>
       </div>
       <div class="result" id="cal-result"></div>
     </li>
 
     <li id="step3" class="alt">
-      <h3>Or enter a known offset directly</h3>
+      <h3>直接输入你已经知道的偏移值</h3>
       <div class="entry">
-        <input id="cal-manual" type="number" step="1" placeholder="e.g. -37">
-        <button class="btn" id="cal-manual-apply" type="button">Apply</button>
+        <input id="cal-manual" type="number" step="1" placeholder="例：-37">
+        <button class="btn" id="cal-manual-apply" type="button">应用</button>
       </div>
-      <p class="note">Skips steps 1–2 if you already measured this session's offset another way.
-         Positive if the game's seed runs ahead of this clock, negative if behind.</p>
+      <p class="note">如果你已通过其他方式测得本次游戏会话的时间偏移，那么可以跳过步骤 1 和 2 并直接输入偏移值。注意：正数表示游戏种子时间略快于当前时钟，而负值表示落后。</p>
     </li>
   </ol>
 </dialog>

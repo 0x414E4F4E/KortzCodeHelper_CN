@@ -86,7 +86,7 @@ $("cal-find").addEventListener("click", findOffset);
 $("cal-result").addEventListener("click", e => {
   const b = e.target.closest("button.cand");
   if (!b) return;
-  if (b.dataset.keep) return showResult("Keeping the current offset — nothing changed.", "hit");
+  if (b.dataset.keep) return showResult("保持当前偏移不变", "hit");
   commit(Number(b.dataset.d));
 });
 ["c1","c2","c3"].forEach((id, i, all) => {
@@ -97,9 +97,9 @@ $("cal-result").addEventListener("click", e => {
 
 $("cal-manual-apply").addEventListener("click", () => {
   const raw = $("cal-manual").value.trim();
-  if (!/^-?\d+$/.test(raw)) return showResult("Enter a whole number of seconds.", "miss");
+  if (!/^-?\d+$/.test(raw)) return showResult("请输入整数秒", "miss");
   setCal(Number(raw));
-  showResult(`Offset <b>${signed(Number(raw))}s</b> applied manually.`, "hit");
+  showResult(`已手动设置偏移： <b>${signed(Number(raw))} 秒</b>`, "hit");
 });
 $("cal-manual").addEventListener("keydown", e => { if (e.key === "Enter") $("cal-manual-apply").click(); });
 
