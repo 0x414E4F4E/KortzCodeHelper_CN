@@ -1,17 +1,14 @@
 <!-- Kortz Code Helper — built from src/ by build.mjs. Edit the sources, not this file. -->
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kortz Code Helper</title><script>try{var t=localStorage.getItem("kortz-theme");if(t!=="light"&&t!=="dark"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark"}if(t==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><style>:root{--bg:#0a0b0a;--panel:#101210;--line:#1e211e;--line-hover:#2c302c;--dim:#868d86;--fg:#d6dad6;--hi:#f2f5f2;--acc:#4bd67f;--warn:#c9a24a;--bad:#d05f5f;--shadow:#0008;--shadow-sm:#000a;--backdrop:#000c;--mono:ui-monospace,"Cascadia Mono","Consolas","DejaVu Sans Mono",monospace}:root[data-theme="light"]{--bg:#f2f3f0;--panel:#fff;--line:#dde0da;--line-hover:#c8ccc4;--dim:#5b6158;--fg:#20241f;--hi:#0a0c09;--acc:#0f7a3a;--warn:#7d611b;--bad:#a83f3f;--shadow:#00000030;--shadow-sm:#00000026;--backdrop:#00000073}*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--fg);font:13px/1.5 var(--mono);display:flex;flex-direction:column}h1,h2,h3{margin:0;font-weight:600;letter-spacing:.08em}h2{font-size:11px;color:var(--dim);text-transform:uppercase;margin:18px 0 8px}h3{font-size:12px;margin-bottom:8px}p{margin:0}.note{color:var(--dim);font-size:11px;line-height:1.6}.spacer{flex:1}button,input,select{font:inherit;color:inherit}:focus-visible{outline:1px solid var(--acc);outline-offset:2px}.bar{display:flex;align-items:center;gap:16px;padding:10px 14px;border-bottom:1px solid var(--line)}.bar h1{font-size:12px;color:var(--dim)}.clock{margin-left:auto;font-size:18px;color:var(--hi);font-variant-numeric:tabular-nums}.clock .frac{color:var(--dim);font-size:12px}.clock .unit{color:var(--dim);font-size:10px;margin-left:6px}.sync{font-size:10px;color:var(--dim);margin-left:10px;letter-spacing:.04em}.sync.bad{color:var(--bad)}.theme-toggle{font-size:15px;line-height:1;padding:5px 8px}.now{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;padding:8px 14px 10px;border-bottom:1px solid var(--line)}.now .sentence{flex:1 1 auto;min-width:0}.now .lbl{font-size:10px;color:var(--dim);letter-spacing:.1em}.now .code{font-size:16px;color:var(--acc);letter-spacing:.05em;font-variant-numeric:tabular-nums}.now #now-laser{color:var(--hi);font-weight:400}.now .dim{color:var(--dim);font-size:12px;font-variant-numeric:tabular-nums}.now .fill{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--acc);opacity:.55}.cal{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--line);font-size:12px}.cal .dot{width:7px;height:7px;border-radius:50%;background:var(--bad);flex:none}.cal.on .dot{background:var(--acc)}.cal.stale .dot{background:var(--warn)}.cal.on #cal-text{color:var(--fg)}.cal #cal-text{color:var(--bad)}.cal.stale #cal-text{color:var(--warn)}.cfg{display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}.cfg label{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--dim)}.cfg .grow{flex:1;min-width:180px}.cfg .grow input{flex:1;min-width:0}input,select{background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:4px 6px;border-radius:2px}input:hover,select:hover{border-color:var(--line-hover)}#maxpress,#hlmax{width:56px}.btn{background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:4px 10px;border-radius:2px;cursor:pointer}.btn:hover{border-color:var(--acc);color:var(--acc)}.btn.ghost{border-color:transparent;color:var(--dim)}.btn.ghost:hover{color:var(--fg)}main{flex:1;display:flex;min-height:0}.foot{padding:12px 14px;text-align:center}.foot a{color:var(--dim)}.foot .mark{cursor:help;border-bottom:1px dotted var(--dim)}.list{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column;overflow:auto}.totop{position:sticky;top:10px;align-self:center;z-index:5;width:44px;height:44px;margin-bottom:-44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--panel);border:1px solid var(--line);color:var(--acc);cursor:pointer;box-shadow:0 2px 8px var(--shadow)}.totop:hover{border-color:var(--acc)}.totop[hidden]{display:none}.detail{width:340px;flex:none;min-height:0;border-left:1px solid var(--line);padding:14px;overflow:auto}@media (max-width:820px){main{flex-direction:column}.detail{width:auto;border-left:0;border-top:1px solid var(--line);flex:1}}table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th{position:sticky;top:0;background:var(--bg);text-align:left;font-weight:400;font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;padding:6px 10px;border-bottom:1px solid var(--line);box-shadow:0 4px 6px -4px transparent;transition:box-shadow .15s}.list.scrolled th{box-shadow:0 4px 6px -4px var(--shadow-sm)}td{padding:4px 10px;border-bottom:1px solid var(--line);white-space:nowrap}th.r,td.r{text-align:right}tbody tr{cursor:pointer}tbody tr:hover td{background:var(--panel)}tbody tr[aria-selected] td{background:var(--panel);color:var(--hi)}tbody tr[aria-selected] td:first-child{box-shadow:inset 2px 0 0 var(--acc)}td.code{color:var(--hi);letter-spacing:.04em}td.dim{color:var(--dim)}td.cheap{color:var(--acc)}.list .note{padding:8px 10px}.tminus{font-size:34px;line-height:1.1;color:var(--hi);font-variant-numeric:tabular-nums;letter-spacing:.02em}.tminus .cs{font-size:18px;color:var(--dim)}.tminus.live{color:var(--acc)}.tminus.gone{color:var(--dim)}.code{font-size:28px;color:var(--acc);letter-spacing:.06em;margin:16px 0 8px;font-variant-numeric:tabular-nums}.near{display:grid;grid-template-columns:auto auto;gap:3px 12px;align-items:baseline;margin:-4px 0 10px;padding:7px 10px;border-left:2px solid var(--acc);background:var(--panel);border-radius:0 2px 2px 0;color:var(--dim);font-size:11px}.near b{color:var(--fg);font-weight:400;font-variant-numeric:tabular-nums}#d-recal{display:block;margin:0 0 10px}.legs{display:flex;gap:14px;color:var(--dim);font-size:11px}.legs b{color:var(--fg);font-weight:400}.facts{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:16px 0 0;font-size:12px}.facts dt{color:var(--dim)}.facts dd{margin:0;color:var(--fg);font-variant-numeric:tabular-nums}.bgroup{margin-bottom:14px}.bgroup > .lbl{display:block;font-size:10px;color:var(--dim);letter-spacing:.1em;margin-bottom:6px}.boards{display:flex;flex-wrap:wrap;gap:12px}.board{display:flex;flex-direction:column;gap:5px}.board .lbl{font-size:10px;color:var(--dim);letter-spacing:.1em}.cells{display:grid;grid-auto-flow:column;gap:4px}.cell{width:8px;height:8px;border-radius:50%;background:var(--line-hover)}.cell.on{background:var(--acc)}dialog{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:3px;padding:18px;width:min(520px,92vw)}dialog::backdrop{background:var(--backdrop)}dialog .x{float:right;background:none;border:0;color:var(--dim);font-size:18px;cursor:pointer;line-height:1}dialog .x:hover{color:var(--fg)}dialog h2{margin-top:0}.steps{list-style:none;margin:16px 0 0;padding:0;counter-reset:s}.steps li{border-top:1px solid var(--line);padding:14px 0 14px 26px;position:relative}.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:14px;color:var(--dim);font-size:11px}.steps li.done::before{content:"\2713";color:var(--acc)}.steps li.alt::before{content:"or"}.steps label{font-size:11px;color:var(--dim);margin-right:10px}#nbr-hint{margin-bottom:8px}#nbr-hint b{color:var(--fg);font-weight:400}.entry{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.entry input{width:44px;text-align:center;font-size:16px}.result{margin-top:10px;font-size:11px;line-height:1.6;color:var(--dim)}.result.hit{color:var(--acc)}.result.miss{color:var(--bad)}.result b{color:var(--hi);font-weight:400}.cand{display:block;width:100%;text-align:left;margin-top:4px;cursor:pointer;background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:4px 8px;border-radius:2px;font-size:11px}.cand:hover{border-color:var(--acc)}#arm-live .tminus{font-size:28px}#cal-rearm{margin-top:8px}@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}</style></head><body><header class="bar"><h1>KORTZ CODE HELPER</h1><div class="clock"><span id="clock-utc">--:--:--</span><span class="frac" id="clock-frac">.00</span><span class="unit">UTC</span><span class="sync" id="sync">syncing…</span></div><button class="btn ghost theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark theme"></button></header><div class="now" id="now-bar"><span class="sentence">If you started <b class="lbl">THIS SECOND</b>, the code would be
-    <span class="code" id="now-code">--&#8202;-&#8202;--&#8202;-&#8202;--</span>, and you'd have
-    Laser variant <b id="now-laser">-</b></span><span class="spacer"></span><span class="dim" id="now-seed">seed -</span><i class="fill" id="now-fill"></i></div><div class="cal" id="cal-bar"><span class="dot" id="cal-dot"></span><span id="cal-text">not calibrated</span><span class="spacer"></span><button class="btn" id="cal-open" type="button">Calibrate</button><button class="btn ghost" id="cal-clear" type="button" hidden>Clear</button></div><div class="cfg"><label>Ahead
-    <select id="window"><option value="300">5 min</option><option value="900" selected>15 min</option><option value="1800">30 min</option></select></label><label>Max presses
-    <input id="maxpress" type="number" min="3" max="150" step="1" value="35"></label><label>Highlight under
-    <input id="hlmax" type="number" min="1" max="150" step="1" value="15"></label><label>Sort
-    <select id="sort"><option value="time" selected>soonest</option><option value="press">cheapest</option></select></label><label class="grow">Seed
-    <input id="lookup" type="text" inputmode="numeric" placeholder="look up a seed"></label></div><main><section class="list" id="list"><button class="totop" id="to-top" type="button" aria-label="Back to top" hidden>&#8593;</button><table><thead><tr><th>in</th><th>utc</th><th>seed</th><th>code</th><th class="r">pr</th><th class="r">lz</th></tr></thead><tbody id="rows"></tbody></table><p class="note" id="count-note"></p></section><aside class="detail" id="detail" hidden><div class="tminus" id="tminus"><span id="t-main">--:--</span><span class="cs" id="t-cs"></span></div><p class="note" id="t-sub"></p><div class="code" id="d-code">--&#8202;-&#8202;--&#8202;-&#8202;--</div><p class="near" id="d-near"></p><button class="btn ghost" id="d-recal" type="button">Recalibrate from this code</button><div class="legs" id="d-legs"></div><dl class="facts"><dt>seed</dt><dd id="d-seed">-</dd><dt>act at</dt><dd id="d-utc">-</dd><dt>laser</dt><dd id="d-laser">-</dd></dl><h2>Hack boards</h2><div class="boards" id="d-boards"></div></aside></main><footer class="note foot">Site created by Lucas7yoshi<span class="mark" title="using claude code, i am not very good at web design, and i figured people wouldnt want to download an exe desktop app, which is something i am actually comfortable at making">*</span>, research done by humans (Lucas7yoshi, Floorball, Logan) -
-  <a href="https://git.l7y.media/slop/KortzCodeHelper" target="_blank" rel="noopener">Source</a></footer><dialog id="cal-dialog"><form method="dialog"><button class="x" id="cal-close" aria-label="Close">&#215;</button></form><h2>Session calibration</h2><p class="note">The game's clock is anchored at sign-in and runs a fixed number of seconds
-     behind. Measure it once per launch, on a heist you then cancel.</p><ol class="steps"><li id="step1"><h3>Arm a second and trigger setup on it</h3><div id="arm-idle"><label>Lead
-          <select id="cal-lead"><option value="10">10 s</option><option value="20">20 s</option><option value="30" selected>30 s</option><option value="60">60 s</option></select></label><button class="btn" id="cal-arm" type="button">Start countdown</button><p class="note">Open the planning board and hold on the setup-cost confirm prompt. Confirm it
-           as the countdown hits START.</p></div><div id="arm-live" hidden><div class="tminus" id="arm-t"><span id="arm-main">--:--</span><span class="cs" id="arm-cs"></span></div><p class="note" id="arm-sub"></p><button class="btn ghost" id="cal-rearm" type="button">Reset</button></div></li><li id="step2"><h3>Enter the code the game gave you</h3><p class="note" id="nbr-hint" hidden></p><div class="entry"><input id="c1" type="text" inputmode="numeric" maxlength="2" placeholder="99"><input id="c2" type="text" inputmode="numeric" maxlength="2" placeholder="99"><input id="c3" type="text" inputmode="numeric" maxlength="2" placeholder="99"><select id="cal-radius"><option value="180">&#177;3 min</option><option value="600" selected>&#177;10 min</option><option value="1800">&#177;30 min</option></select><button class="btn" id="cal-find" type="button">Find offset</button></div><div class="result" id="cal-result"></div></li><li id="step3" class="alt"><h3>Or enter a known offset directly</h3><div class="entry"><input id="cal-manual" type="number" step="1" placeholder="e.g. -37"><button class="btn" id="cal-manual-apply" type="button">Apply</button></div><p class="note">Skips steps 1–2 if you already measured this session's offset another way.
-         Positive if the game's seed runs ahead of this clock, negative if behind.</p></li></ol></dialog><script>"use strict";
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>科兹中心豪劫 速通密码预测工具</title><script>try{var t=localStorage.getItem("kortz-theme");if(t!=="light"&&t!=="dark"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark"}if(t==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><style>:root{--bg:#0a0b0a;--panel:#101210;--line:#1e211e;--line-hover:#2c302c;--dim:#868d86;--fg:#d6dad6;--hi:#f2f5f2;--acc:#4bd67f;--warn:#c9a24a;--bad:#d05f5f;--shadow:#0008;--shadow-sm:#000a;--backdrop:#000c;--mono:ui-monospace,"Cascadia Mono","Consolas","DejaVu Sans Mono",monospace}:root[data-theme="light"]{--bg:#f2f3f0;--panel:#fff;--line:#dde0da;--line-hover:#c8ccc4;--dim:#5b6158;--fg:#20241f;--hi:#0a0c09;--acc:#0f7a3a;--warn:#7d611b;--bad:#a83f3f;--shadow:#00000030;--shadow-sm:#00000026;--backdrop:#00000073}*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--fg);font:13px/1.5 var(--mono);display:flex;flex-direction:column}h1,h2,h3{margin:0;font-weight:600;letter-spacing:.08em}h2{font-size:11px;color:var(--dim);text-transform:uppercase;margin:18px 0 8px}h3{font-size:12px;margin-bottom:8px}p{margin:0}.note{color:var(--dim);font-size:11px;line-height:1.6}.spacer{flex:1}button,input,select{font:inherit;color:inherit}:focus-visible{outline:1px solid var(--acc);outline-offset:2px}.bar{display:flex;align-items:center;gap:16px;padding:10px 14px;border-bottom:1px solid var(--line)}.bar h1{font-size:12px;color:var(--dim)}.clock{margin-left:auto;font-size:18px;color:var(--hi);font-variant-numeric:tabular-nums}.clock .frac{color:var(--dim);font-size:12px}.clock .unit{color:var(--dim);font-size:10px;margin-left:6px}.sync{font-size:10px;color:var(--dim);margin-left:10px;letter-spacing:.04em}.sync.bad{color:var(--bad)}.theme-toggle{font-size:15px;line-height:1;padding:5px 8px}.now{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;padding:8px 14px 10px;border-bottom:1px solid var(--line)}.now .sentence{flex:1 1 auto;min-width:0}.now .lbl{font-size:10px;color:var(--dim);letter-spacing:.1em}.now .code{font-size:16px;color:var(--acc);letter-spacing:.05em;font-variant-numeric:tabular-nums}.now #now-laser{color:var(--hi);font-weight:400}.now .dim{color:var(--dim);font-size:12px;font-variant-numeric:tabular-nums}.now .fill{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--acc);opacity:.55}.cal{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--line);font-size:12px}.cal .dot{width:7px;height:7px;border-radius:50%;background:var(--bad);flex:none}.cal.on .dot{background:var(--acc)}.cal.stale .dot{background:var(--warn)}.cal.on #cal-text{color:var(--fg)}.cal #cal-text{color:var(--bad)}.cal.stale #cal-text{color:var(--warn)}.cfg{display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}.cfg label{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--dim)}.cfg .grow{flex:1;min-width:180px}.cfg .grow input{flex:1;min-width:0}input,select{background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:4px 6px;border-radius:2px}input:hover,select:hover{border-color:var(--line-hover)}#maxpress,#hlmax{width:56px}.btn{background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:4px 10px;border-radius:2px;cursor:pointer}.btn:hover{border-color:var(--acc);color:var(--acc)}.btn.ghost{border-color:transparent;color:var(--dim)}.btn.ghost:hover{color:var(--fg)}main{flex:1;display:flex;min-height:0}.foot{padding:12px 14px;text-align:center}.foot a{color:var(--dim)}.foot .mark{cursor:help;border-bottom:1px dotted var(--dim)}.list{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column;overflow:auto}.totop{position:sticky;top:10px;align-self:center;z-index:5;width:44px;height:44px;margin-bottom:-44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--panel);border:1px solid var(--line);color:var(--acc);cursor:pointer;box-shadow:0 2px 8px var(--shadow)}.totop:hover{border-color:var(--acc)}.totop[hidden]{display:none}.detail{width:340px;flex:none;min-height:0;border-left:1px solid var(--line);padding:14px;overflow:auto}@media (max-width:820px){main{flex-direction:column}.detail{width:auto;border-left:0;border-top:1px solid var(--line);flex:1}}table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th{position:sticky;top:0;background:var(--bg);text-align:left;font-weight:400;font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;padding:6px 10px;border-bottom:1px solid var(--line);box-shadow:0 4px 6px -4px transparent;transition:box-shadow .15s}.list.scrolled th{box-shadow:0 4px 6px -4px var(--shadow-sm)}td{padding:4px 10px;border-bottom:1px solid var(--line);white-space:nowrap}th.r,td.r{text-align:right}tbody tr{cursor:pointer}tbody tr:hover td{background:var(--panel)}tbody tr[aria-selected] td{background:var(--panel);color:var(--hi)}tbody tr[aria-selected] td:first-child{box-shadow:inset 2px 0 0 var(--acc)}td.code{color:var(--hi);letter-spacing:.04em}td.dim{color:var(--dim)}td.cheap{color:var(--acc)}.list .note{padding:8px 10px}.tminus{font-size:34px;line-height:1.1;color:var(--hi);font-variant-numeric:tabular-nums;letter-spacing:.02em}.tminus .cs{font-size:18px;color:var(--dim)}.tminus.live{color:var(--acc)}.tminus.gone{color:var(--dim)}.code{font-size:28px;color:var(--acc);letter-spacing:.06em;margin:16px 0 8px;font-variant-numeric:tabular-nums}.near{display:grid;grid-template-columns:auto auto;gap:3px 12px;align-items:baseline;margin:-4px 0 10px;padding:7px 10px;border-left:2px solid var(--acc);background:var(--panel);border-radius:0 2px 2px 0;color:var(--dim);font-size:11px}.near b{color:var(--fg);font-weight:400;font-variant-numeric:tabular-nums}#d-recal{display:block;margin:0 0 10px}.legs{display:flex;gap:14px;color:var(--dim);font-size:11px}.legs b{color:var(--fg);font-weight:400}.facts{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:16px 0 0;font-size:12px}.facts dt{color:var(--dim)}.facts dd{margin:0;color:var(--fg);font-variant-numeric:tabular-nums}.bgroup{margin-bottom:14px}.bgroup > .lbl{display:block;font-size:10px;color:var(--dim);letter-spacing:.1em;margin-bottom:6px}.boards{display:flex;flex-wrap:wrap;gap:12px}.board{display:flex;flex-direction:column;gap:5px}.board .lbl{font-size:10px;color:var(--dim);letter-spacing:.1em}.cells{display:grid;grid-auto-flow:column;gap:4px}.cell{width:8px;height:8px;border-radius:50%;background:var(--line-hover)}.cell.on{background:var(--acc)}dialog{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:3px;padding:18px;width:min(520px,92vw)}dialog::backdrop{background:var(--backdrop)}dialog .x{float:right;background:none;border:0;color:var(--dim);font-size:18px;cursor:pointer;line-height:1}dialog .x:hover{color:var(--fg)}dialog h2{margin-top:0}.steps{list-style:none;margin:16px 0 0;padding:0;counter-reset:s}.steps li{border-top:1px solid var(--line);padding:14px 0 14px 26px;position:relative}.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:14px;color:var(--dim);font-size:11px}.steps li.done::before{content:"\2713";color:var(--acc)}.steps li.alt::before{content:"或者"}.steps label{font-size:11px;color:var(--dim);margin-right:10px}#nbr-hint{margin-bottom:8px}#nbr-hint b{color:var(--fg);font-weight:400}.entry{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.entry input{width:44px;text-align:center;font-size:16px}.result{margin-top:10px;font-size:11px;line-height:1.6;color:var(--dim)}.result.hit{color:var(--acc)}.result.miss{color:var(--bad)}.result b{color:var(--hi);font-weight:400}.cand{display:block;width:100%;text-align:left;margin-top:4px;cursor:pointer;background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:4px 8px;border-radius:2px;font-size:11px}.cand:hover{border-color:var(--acc)}#arm-live .tminus{font-size:28px}#cal-rearm{margin-top:8px}@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}</style></head><body><header class="bar"><h1>GTA 在线模式：科兹中心豪劫 速通密码预测工具</h1><div class="clock"><span id="clock-local">--:--:--</span><span class="frac" id="clock-frac">.00</span><span class="unit">本地时间</span><span class="sync" id="sync">同步时间中......</span></div><button class="btn ghost theme-toggle" id="theme-toggle" type="button" aria-label="切换深色/浅色主题"></button></header><div class="now" id="now-bar"><span class="sentence">如果你在 <b class="lbl">本秒内</b> 支付抢劫准备费用，通行密码应该为
+    <span class="code" id="now-code">--&#8202;-&#8202;--&#8202;-&#8202;--</span>，且激光类型应该为 <b id="now-laser">-</b></span><span class="spacer"></span><span class="dim" id="now-seed">种子 -</span><i class="fill" id="now-fill"></i></div><div class="cal" id="cal-bar"><span class="dot" id="cal-dot"></span><span id="cal-text">暂未校准</span><span class="spacer"></span><button class="btn" id="cal-open" type="button">校准时间</button><button class="btn ghost" id="cal-clear" type="button" hidden>清除</button></div><div class="cfg"><label>预计时间
+    <select id="window"><option value="300">未来 5 分钟</option><option value="900" selected>未来 15 分钟</option><option value="1800">未来 30 分钟</option></select></label><label>最大操作次数
+    <input id="maxpress" type="number" min="3" max="150" step="1" value="35"></label><label>突出显示的最小操作次数
+    <input id="hlmax" type="number" min="1" max="150" step="1" value="15"></label><label>分类
+    <select id="sort"><option value="time" selected>距离现在最近</option><option value="press">操作尽量最少</option></select></label><label class="grow">种子
+    <input id="lookup" type="text" inputmode="numeric" placeholder="手动查找种子值"></label></div><main><section class="list" id="list"><button class="totop" id="to-top" type="button" aria-label="回到顶部" hidden>&#8593;</button><table><thead><tr><th>预计时间</th><th>本地时间</th><th>种子</th><th>通行密码</th><th class="r">操作次数</th><th class="r">激光种类</th></tr></thead><tbody id="rows"></tbody></table><p class="note" id="count-note"></p></section><aside class="detail" id="detail" hidden><div class="tminus" id="tminus"><span id="t-main">--:--</span><span class="cs" id="t-cs"></span></div><p class="note" id="t-sub"></p><div class="code" id="d-code">--&#8202;-&#8202;--&#8202;-&#8202;--</div><p class="near" id="d-near"></p><button class="btn ghost" id="d-recal" type="button">从本通行密码重新进行校准</button><div class="legs" id="d-legs"></div><dl class="facts"><dt>种子</dt><dd id="d-seed">-</dd><dt>准备时间</dt><dd id="d-time">-</dd><dt>激光类型</dt><dd id="d-laser">-</dd></dl><h2>点阵预测图</h2><div class="boards" id="d-boards"></div></aside></main><footer class="note foot">原网页由 Lucas7yoshi 制作<span class="mark" title="本网站使用 Claude 制作，因为我发现总有人不喜欢下桌面 APP 使用，而这才是我真正擅长做的事情">*</span>，本项目由 Lucas7yoshi，Floorball 和 Logan 研究游戏机制 -
+  <a href="https://git.l7y.media/slop/KortzCodeHelper" target="_blank" rel="noopener">源代码</a><br>
+  汉化者：<a href="https://space.bilibili.com/275185681" target="_blank" rel="noopener">白发飘飘火柴人</a> 汉化项目：<a href="https://github.com/FlowingWhiteHairMatchstickMan/KortzCodeHelper_CN" target="_blank" rel="noopener">源代码</a></footer><dialog id="cal-dialog"><form method="dialog"><button class="x" id="cal-close" aria-label="关闭">&#215;</button></form><h2>游戏会话校准</h2><p class="note">游戏的时钟从登录游戏时开始计时，且始终比现实时间慢固定的秒数。每次启动游戏后都需要重新校准时间。每次校准完成后，请取消当前的科兹中心豪劫。</p><ol class="steps"><li id="step1"><h3>选择特定的秒数，并在该秒支付抢劫准备费用</h3><div id="arm-idle"><label>提前
+          <select id="cal-lead"><option value="10">10 秒</option><option value="20">20 秒</option><option value="30" selected>30 秒</option><option value="60">60 秒</option></select></label><button class="btn" id="cal-arm" type="button">开始倒计时</button><p class="note">打开科兹中心豪劫抢劫面板，在准备抢劫任务支付费用确认提示处等待倒计时，当倒计时出现“请立即开始抢劫”，立即确认支付。</p></div><div id="arm-live" hidden><div class="tminus" id="arm-t"><span id="arm-main">--:--</span><span class="cs" id="arm-cs"></span></div><p class="note" id="arm-sub"></p><button class="btn ghost" id="cal-rearm" type="button">重置倒计时</button></div></li><li id="step2"><h3>输入游戏提供给你的通行密码</h3><p class="note" id="nbr-hint" hidden></p><div class="entry"><input id="c1" type="text" inputmode="numeric" maxlength="2" placeholder="99"><input id="c2" type="text" inputmode="numeric" maxlength="2" placeholder="99"><input id="c3" type="text" inputmode="numeric" maxlength="2" placeholder="99"><select id="cal-radius"><option value="180">&#177;3 分钟</option><option value="600" selected>&#177;10 分钟</option><option value="1800">&#177;30 分钟</option></select><button class="btn" id="cal-find" type="button">查找偏移值</button></div><div class="result" id="cal-result"></div></li><li id="step3" class="alt"><h3>直接输入你已经知道的偏移值</h3><div class="entry"><input id="cal-manual" type="number" step="1" placeholder="例：-37"><button class="btn" id="cal-manual-apply" type="button">应用</button></div><p class="note">如果你已通过其他方式测得本次游戏会话的时间偏移，那么可以跳过步骤 1 和 2 并直接输入偏移值。注意：正数表示游戏种子时间略快于当前时钟，而负值表示落后。</p></li></ol></dialog><script>"use strict";
 const MUL = 1557985959;
 function seedState(seed){
 const u = seed >>> 0;
@@ -191,9 +188,9 @@ if (arm !== null && Date.now() / 1000 - arm < 6 * 3600) state.armed = arm;
 const $ = id => document.getElementById(id);
 const pad2 = n => String(n).padStart(2, "0");
 const fmtCode = c => c.map(pad2).join("-");
-function utcTime(sec){
+function localTime(sec){
 const d = new Date(sec * 1000);
-return pad2(d.getUTCHours()) + ":" + pad2(d.getUTCMinutes()) + ":" + pad2(d.getUTCSeconds());
+return pad2(d.getHours()) + ":" + pad2(d.getMinutes()) + ":" + pad2(d.getSeconds());
 }
 function rel(sec){
 if (sec <= 0) return "now";
@@ -237,13 +234,13 @@ list.sort(state.sort === "press" ? (a, b) => a.press - b.press || a.w - b.w
 const cap = 120;
 const shown = list.slice(0, cap);
 $("count-note").textContent = list.length
-? `${list.length} of ${state.rows.length} seconds at ${state.max} presses or fewer`
+? `在 ${state.rows.length} 秒中，有 ${list.length} 秒需要 ${state.max} 次或更少按键`
 + (list.length > cap ? ` · showing ${cap}` : "")
 : `No second under ${state.max} presses in this window — raise the limit or search further ahead.`;
 $("rows").innerHTML = shown.map(r => `<tr tabindex="0" data-w="${r.w}"${
 state.selected === r.w ? ' aria-selected="true"' : ""}>
 <td class="dim">${rel(r.w - now)}</td>
-<td>${utcTime(r.w)}</td>
+<td>${localTime(r.w)}</td>
 <td class="dim">${r.seed}</td>
 <td class="code">${fmtCode(r.code)}</td>
 <td class="r${r.press <= state.hl ? " cheap" : ""}">${r.press}</td>
@@ -273,8 +270,8 @@ $("d-legs").innerHTML = p.legs.map(l =>
 `<span><b>${pad2(l.to)}</b> ${l.cost}${l.dir}</span>`).join("")
 + `<span class="spacer"></span><span><b>${p.total}</b> 总计</span>`;
 $("d-seed").textContent = seed;
-$("d-utc").textContent = utcTime(w) + " UTC";
-$("d-laser").textContent = "variant " + laserVariant(seed);
+$("d-time").textContent = localTime(w) + " 本地时间";
+$("d-laser").textContent = "类型 " + laserVariant(seed);
 $("d-boards").innerHTML = [["普通", false], ["困难", true]].map(([name, hard]) => {
 const h = hackBoards(seed, hard);
 const boards = h.boards.map((pick, i) => {
@@ -292,8 +289,8 @@ return `<div class="bgroup"><span class="lbl">${name} · ${h.cols}×${h.rows}</s
 "use strict";
 function countdown(target, ms, els){
 const left = target - ms / 1000;
-if (left < -1){ els.box.className = "tminus gone"; els.main.textContent = "elapsed"; els.cs.textContent = ""; return -1; }
-if (left <= 0){ els.box.className = "tminus live"; els.main.textContent = "START";  els.cs.textContent = ""; return 0; }
+if (left < -1){ els.box.className = "tminus gone"; els.main.textContent = "已超时"; els.cs.textContent = ""; return -1; }
+if (left <= 0){ els.box.className = "tminus live"; els.main.textContent = "请立即开始抢劫";  els.cs.textContent = ""; return 0; }
 els.box.className = "tminus";
 const s = Math.floor(left), m = Math.floor(s / 60);
 els.main.textContent = m >= 60
@@ -311,20 +308,20 @@ nowSec = sec;
 const seed = sec + state.cal;
 $("now-code").textContent = fmtCode(vaultCode(seed));
 $("now-laser").textContent = laserVariant(seed);
-$("now-seed").textContent = "seed " + seed;
+$("now-seed").textContent = "种子 " + seed;
 }
 $("now-fill").style.width = ((ms % 1000) / 1000 * 100) + "%";
 }
 function frame(){
 const ms = nowMs(), d = new Date(ms);
-$("clock-utc").textContent = pad2(d.getUTCHours()) + ":" + pad2(d.getUTCMinutes()) + ":" + pad2(d.getUTCSeconds());
+$("clock-local").textContent = pad2(d.getHours()) + ":" + pad2(d.getMinutes()) + ":" + pad2(d.getSeconds());
 $("clock-frac").textContent = "." + pad2(Math.floor((ms % 1000) / 10));
 paintNow(ms);
 if (state.selected !== null){
 const phase = countdown(state.selected, ms, mainT);
-$("t-sub").textContent = phase > 0 ? "confirm the setup prompt as this hits START"
-: phase === 0 ? "confirm now"
-: "that second has passed";
+$("t-sub").textContent = phase > 0 ? "当倒计时出现“请立即开始抢劫”，立即确认支付。"
+: phase === 0 ? "请立即开始抢劫"
+: "选择的那一秒已超时";
 }
 if (calDlg.open && state.armed !== null) paintArmClock(ms);
 requestAnimationFrame(frame);
@@ -333,14 +330,14 @@ function paintSync(){
 const el = $("sync");
 if (clock.source === null){
 el.className = "sync bad";
-el.textContent = "device clock — unverified";
-el.title = "No time endpoint answered. Predictions are only as good as this PC's clock.";
+el.textContent = "正在使用设备时间 - 无法确认时间";
+el.title = "未收到同步的时间，本次预测仅在本计算机时间完全精确的情况下才准确";
 return;
 }
 const a = Math.round(clock.acc);
 el.className = "sync";
-el.textContent = (a <= 250 ? "synced" : "narrowing") + " ±" + a + " ms · " + clock.source;
-el.title = "This PC's clock reads " + signed(Math.round(clock.offset)) + " ms against " + clock.source + ".";
+el.textContent = (a <= 250 ? "已同步" : "校准时间中") + " ±" + a + " ms · " + clock.source;
+el.title = "本计算机的时间与 "+ clock.source +" 服务器约有 " + signed(Math.round(clock.offset)) + " ms 的偏差";
 }
 "use strict";
 const calDlg = $("cal-dialog");
@@ -350,13 +347,13 @@ const bar = $("cal-bar");
 $("cal-clear").hidden = !state.cal;
 if (!state.cal){
 bar.className = "cal";
-$("cal-text").textContent = "not calibrated — codes below are off by the session lag";
+$("cal-text").textContent = "未校准时间，通行密码可能因游戏会话计时延迟而错误";
 return;
 }
 const stale = calStale();
 bar.className = "cal " + (stale ? "stale" : "on");
-$("cal-text").textContent = signed(state.cal) + "s applied · measured " + ago(Date.now() - state.calAt)
-+ (stale ? " — only valid if GTA has not restarted since" : "");
+$("cal-text").textContent = signed(state.cal) + " 秒延迟已应用 · 于 " + ago(Date.now() - state.calAt) + " 已校准"
++ (stale ? " — 只有在 GTA V 游戏未重启时才能保持有效" : "");
 }
 function setCal(delta){
 state.cal = delta;
@@ -387,15 +384,15 @@ const el = $("nbr-hint");
 if (state.armed === null || state.calAt === null){ el.hidden = true; return; }
 el.hidden = false;
 const codeAt = k => fmtCode(vaultCode(state.armed + k + state.cal));
-el.innerHTML = `reference at your current offset — <b>1s early</b> ${codeAt(-1)}`
-+ ` &middot; <b>on time</b> ${codeAt(0)} &middot; <b>1s late</b> ${codeAt(1)}`;
+el.innerHTML = `由你目前设置的延迟为准：<b>早按了 1 秒时</b> ${codeAt(-1)}`
++ ` &middot; <b>准确时</b> ${codeAt(0)} &middot; <b>晚按了 1 秒时</b> ${codeAt(1)}`;
 }
 const armT = { box: null, main: null, cs: null };
 function paintArmClock(ms){
 const phase = countdown(state.armed, ms, armT);
-$("arm-sub").textContent = phase > 0 ? "confirm the setup prompt as this hits START"
-: phase === 0 ? "confirm now"
-: "logged — now enter the code the game gave you";
+$("arm-sub").textContent = phase > 0 ? "当此处显示“请立即开始抢劫”时，立刻支付抢劫准备费用"
+: phase === 0 ? "立刻支付抢劫准备费用"
+: "已结束，现在请你输入当前游戏提供给你的通行密码";
 if (phase < 0 && !paintArmClock.jumped){ paintArmClock.jumped = true; try{ $("c1").focus(); }catch(_){} }
 }
 function showResult(html, kind){
@@ -404,10 +401,10 @@ el.className = "result " + kind;
 el.innerHTML = html;
 }
 function findOffset(){
-if (state.armed === null) return showResult("Arm a second in step 1 first — the offset is measured against it.", "miss");
+if (state.armed === null) return showResult("先在步骤 1 中准备在某一秒支付抢劫准备费用，稍后偏移将会由其进行测量", "miss");
 const vals = ["c1","c2","c3"].map(id => $(id).value.trim());
 if (!vals.every(v => /^\d{1,2}$/.test(v) && Number(v) >= 1 && Number(v) <= 99))
-return showResult("Enter all three numbers. Each is between 1 and 99.", "miss");
+return showResult("请输入通行密码的三个数字，每个数字需在 1 - 99 之间", "miss");
 const obs = vals.map(Number);
 const R = Number($("cal-radius").value);
 const hits = [];
@@ -417,26 +414,26 @@ if (c[0] === obs[0] && c[1] === obs[1] && c[2] === obs[2]) hits.push(d);
 }
 hits.sort((a, b) => Math.abs(a) - Math.abs(b));
 if (!hits.length)
-return showResult(`No second within ±${Math.round(R / 60)} min produces <b>${fmtCode(obs)}</b>. `
-+ "Widen the search, or check the numbers and their order.", "miss");
+return showResult(`在 ±${Math.round(R / 60)} 分钟内没有可生成 <b>${fmtCode(obs)}</b> 的秒`
++ "需要提高搜索范围，或者检查数字及其顺序是否正确", "miss");
 const timing = d => {
 if (state.calAt === null || d === state.cal) return "";
 const k = d - state.cal;
 return Math.abs(k) <= TIMING_SLOP
-? ` — looks like ~${Math.abs(k)}s ${k > 0 ? "late" : "early"}, same offset` : "";
+? ` — 看起来你 ~${Math.abs(k)}s ${k > 0 ? "慢了" : "快了"}, same offset` : "";
 };
 if (hits.length > 1)
-return showResult(`${hits.length} seconds produce ${fmtCode(obs)}. Pick the one you believe:`
-+ hits.slice(0, 8).map(d => `<button class="cand" type="button" data-d="${d}">${signed(d)}s `
-+ `→ seed ${state.armed + d} (${utcTime(state.armed + d)} UTC)${timing(d)}</button>`).join(""), "hit");
+return showResult(`有 ${hits.length} 秒会生成 ${fmtCode(obs)} 的通行密码。请选择你想要的一秒：`
++ hits.slice(0, 8).map(d => `<button class="cand" type="button" data-d="${d}">${signed(d)}秒 `
++ `→ 种子 ${state.armed + d} (${localTime(state.armed + d)} 本地时间)${timing(d)}</button>`).join(""), "hit");
 const d = hits[0];
 if (state.calAt !== null && d !== state.cal && Math.abs(d - state.cal) <= TIMING_SLOP){
 const k = d - state.cal;
 return showResult(
 `That matches pressing about <b>${Math.abs(k)}s ${k > 0 ? "late" : "early"}</b>, not a changed offset — `
-+ `your current calibration (<b>${signed(state.cal)}s</b>) is probably still fine.`
-+ `<button class="cand" type="button" data-keep="1">Keep it — I'll aim ${k > 0 ? "earlier" : "later"} next time</button>`
-+ `<button class="cand" type="button" data-d="${d}">Apply ${signed(d)}s anyway</button>`,
++ `你目前的校准 (<b>${signed(state.cal)}s</b>) 应该是对的。`
++ `<button class="cand" type="button" data-keep="1">保留 - 我将在 ${k > 0 ? "提前" : "延后"} 进行校准</button>`
++ `<button class="cand" type="button" data-d="${d}">坚持应用 ${signed(d)} 秒偏移</button>`,
 "hit");
 }
 commit(d);
@@ -513,7 +510,7 @@ $("cal-find").addEventListener("click", findOffset);
 $("cal-result").addEventListener("click", e => {
 const b = e.target.closest("button.cand");
 if (!b) return;
-if (b.dataset.keep) return showResult("Keeping the current offset — nothing changed.", "hit");
+if (b.dataset.keep) return showResult("保持当前偏移不变", "hit");
 commit(Number(b.dataset.d));
 });
 ["c1","c2","c3"].forEach((id, i, all) => {
@@ -523,9 +520,9 @@ el.addEventListener("input", () => { if (el.value.length === 2 && i < 2) $(all[i
 });
 $("cal-manual-apply").addEventListener("click", () => {
 const raw = $("cal-manual").value.trim();
-if (!/^-?\d+$/.test(raw)) return showResult("Enter a whole number of seconds.", "miss");
+if (!/^-?\d+$/.test(raw)) return showResult("请输入整数秒", "miss");
 setCal(Number(raw));
-showResult(`Offset <b>${signed(Number(raw))}s</b> applied manually.`, "hit");
+showResult(`已手动设置偏移： <b>${signed(Number(raw))} 秒</b>`, "hit");
 });
 $("cal-manual").addEventListener("keydown", e => { if (e.key === "Enter") $("cal-manual-apply").click(); });
 mainT.box = $("tminus"); mainT.main = $("t-main"); mainT.cs = $("t-cs");

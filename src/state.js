@@ -50,9 +50,9 @@ const $ = id => document.getElementById(id);
 const pad2 = n => String(n).padStart(2, "0");
 const fmtCode = c => c.map(pad2).join("-");
 
-function utcTime(sec){
-  const d = new Date(sec * 1000 + 8 * 3600e3);
-  return pad2(d.getUTCHours()) + ":" + pad2(d.getUTCMinutes()) + ":" + pad2(d.getUTCSeconds());
+function localTime(sec){
+  const d = new Date(sec * 1000);
+  return pad2(d.getHours()) + ":" + pad2(d.getMinutes()) + ":" + pad2(d.getSeconds());
 }
 function rel(sec){
   if (sec <= 0) return "now";

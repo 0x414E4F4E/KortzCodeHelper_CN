@@ -24,8 +24,8 @@
 <header class="bar">
   <h1>GTA 在线模式：科兹中心豪劫 速通密码预测工具</h1>
   <div class="clock">
-    <span id="clock-utc">--:--:--</span><span class="frac" id="clock-frac">.00</span>
-    <span class="unit">时区 UTC +8</span>
+    <span id="clock-local">--:--:--</span><span class="frac" id="clock-frac">.00</span>
+    <span class="unit">本地时间</span>
     <span class="sync" id="sync">同步时间中......</span>
   </div>
   <button class="btn ghost theme-toggle" id="theme-toggle" type="button" aria-label="切换深色/浅色主题"></button>
@@ -82,7 +82,7 @@
     <button class="totop" id="to-top" type="button" aria-label="回到顶部" hidden>&#8593;</button>
     <table>
       <thead>
-        <tr><th>预计时间</th><th>UTC +8 时间</th><th>种子</th><th>通行密码</th><th class="r">操作次数</th><th class="r">激光种类</th></tr>
+        <tr><th>预计时间</th><th>本地时间</th><th>种子</th><th>通行密码</th><th class="r">操作次数</th><th class="r">激光种类</th></tr>
       </thead>
       <tbody id="rows"></tbody>
     </table>
@@ -100,7 +100,7 @@
 
     <dl class="facts">
       <dt>种子</dt><dd id="d-seed">-</dd>
-      <dt>准备时间</dt><dd id="d-utc">-</dd>
+      <dt>准备时间</dt><dd id="d-time">-</dd>
       <dt>激光类型</dt><dd id="d-laser">-</dd>
     </dl>
 

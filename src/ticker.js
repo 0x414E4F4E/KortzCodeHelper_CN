@@ -43,8 +43,8 @@ function paintNow(ms){
 }
 
 function frame(){
-  const ms = nowMs(), d = new Date(ms + 8 * 3600e3);
-  $("clock-utc").textContent = pad2(d.getUTCHours()) + ":" + pad2(d.getUTCMinutes()) + ":" + pad2(d.getUTCSeconds());
+  const ms = nowMs(), d = new Date(ms);
+  $("clock-local").textContent = pad2(d.getHours()) + ":" + pad2(d.getMinutes()) + ":" + pad2(d.getSeconds());
   $("clock-frac").textContent = "." + pad2(Math.floor((ms % 1000) / 10));
   paintNow(ms);
 

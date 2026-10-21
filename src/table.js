@@ -53,7 +53,7 @@ function render(){
   $("rows").innerHTML = shown.map(r => `<tr tabindex="0" data-w="${r.w}"${
       state.selected === r.w ? ' aria-selected="true"' : ""}>
       <td class="dim">${rel(r.w - now)}</td>
-      <td>${utcTime(r.w)}</td>
+      <td>${localTime(r.w)}</td>
       <td class="dim">${r.seed}</td>
       <td class="code">${fmtCode(r.code)}</td>
       <td class="r${r.press <= state.hl ? " cheap" : ""}">${r.press}</td>
@@ -96,7 +96,7 @@ function paintDetail(){
     `<span><b>${pad2(l.to)}</b> ${l.cost}${l.dir}</span>`).join("")
     + `<span class="spacer"></span><span><b>${p.total}</b> 总计</span>`;
   $("d-seed").textContent = seed;
-  $("d-utc").textContent = utcTime(w) + " UTC+8";
+  $("d-time").textContent = localTime(w) + " 本地时间";
   $("d-laser").textContent = "类型 " + laserVariant(seed);
 
   /* Both difficulties, because which one you are on is a lobby setting rather

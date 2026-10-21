@@ -115,7 +115,7 @@ function findOffset(){
   if (hits.length > 1)
     return showResult(`有 ${hits.length} 秒会生成 ${fmtCode(obs)} 的通行密码。请选择你想要的一秒：`
       + hits.slice(0, 8).map(d => `<button class="cand" type="button" data-d="${d}">${signed(d)}秒 `
-        + `→ 种子 ${state.armed + d} (${utcTime(state.armed + d)} UTC +8)${timing(d)}</button>`).join(""), "hit");
+        + `→ 种子 ${state.armed + d} (${localTime(state.armed + d)} 本地时间)${timing(d)}</button>`).join(""), "hit");
 
   const d = hits[0];
   if (state.calAt !== null && d !== state.cal && Math.abs(d - state.cal) <= TIMING_SLOP){
